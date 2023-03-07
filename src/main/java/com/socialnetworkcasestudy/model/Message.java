@@ -3,17 +3,19 @@ package com.socialnetworkcasestudy.model;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Entity
 public class Message {
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
-    private User user;
+    @JoinColumn(name = "sourceId")
+    private User source;
+    @ManyToOne
+    @JoinColumn(name = "targetId")
+    private User target;
 
     @Lob
     private String message;
@@ -26,14 +28,14 @@ public class Message {
     public Message() {
     }
 
-    public Message(Long id, User user, String message, Instant createdAt, Instant updatedAt) {
+    public Message(Long id, User source, User target, String message, Instant createdAt, Instant updatedAt) {
         this.id = id;
-        this.user = user;
+        this.source = source;
+        this.target = target;
         this.message = message;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
 
     public Long getId() {
         return id;
@@ -43,12 +45,20 @@ public class Message {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getSource() {
+        return source;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSource(User source) {
+        this.source = source;
+    }
+
+    public User getTarget() {
+        return target;
+    }
+
+    public void setTarget(User target) {
+        this.target = target;
     }
 
     public String getMessage() {

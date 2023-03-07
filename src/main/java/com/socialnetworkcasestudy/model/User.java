@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
 public class User {
@@ -22,7 +23,8 @@ public class User {
     @Column
     private String lastName;
 
-    @Column(unique = true)
+    @Column
+    private Date dateOfBirth;
 
     @Length(min = 10, max = 10)
     private String mobile;
