@@ -22,8 +22,10 @@ public class Friend {
     private Set<User> users =new HashSet<>();
 
 
+    @Enumerated(EnumType.STRING)
     private RelationshipType relationshipType;
 
+    @Enumerated(EnumType.STRING)
     private FriendshipStatus friendshipStatus;
 
     private Instant createdAt;

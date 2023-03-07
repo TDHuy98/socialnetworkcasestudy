@@ -18,6 +18,7 @@ public class Post {
     @Lob
     @Column(nullable = false)
     private String content;
+    @Enumerated(EnumType.STRING)
     private PostStatus postStatus;
 
     @OneToMany

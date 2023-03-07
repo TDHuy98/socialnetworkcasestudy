@@ -18,6 +18,7 @@ public class Follower {
             inverseJoinColumns = @JoinColumn(name = "follow _id"))
     private Collection<User> userId;
 
+    @Enumerated(EnumType.STRING)
     private FollowerType followerType;
 
     private Instant createdAt;

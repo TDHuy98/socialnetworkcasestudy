@@ -17,10 +17,8 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "postId")
     private Post postId;
-
     @OneToMany
     @JoinColumn(name = "parentId")
     private Collection<Comment> comments = new ArrayList<>();
-
 
 }
