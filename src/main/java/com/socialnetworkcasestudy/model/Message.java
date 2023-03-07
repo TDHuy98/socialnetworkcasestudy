@@ -11,8 +11,9 @@ public class Message {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(mappedBy = "message")
-    private Collection<User> users=new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
     @Lob
     private String message;
@@ -25,13 +26,14 @@ public class Message {
     public Message() {
     }
 
-    public Message(Long id, Collection<User> users, String message, Instant createdAt, Instant updatedAt) {
+    public Message(Long id, User user, String message, Instant createdAt, Instant updatedAt) {
         this.id = id;
-        this.users = users;
+        this.user = user;
         this.message = message;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
 
     public Long getId() {
         return id;
@@ -41,12 +43,12 @@ public class Message {
         this.id = id;
     }
 
-    public Collection<User> getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(Collection<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getMessage() {

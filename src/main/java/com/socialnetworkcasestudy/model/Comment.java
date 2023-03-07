@@ -10,9 +10,9 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @ManyToOne
-//    @JoinColumn(name = "userId")
-//    private User userId;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User userId;
     private String content;
     @ManyToOne
     @JoinColumn(name = "postId")

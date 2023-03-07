@@ -6,8 +6,6 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Entity
 public class User {
@@ -37,16 +35,6 @@ public class User {
     @Length(min = 3, max = 32)
     private String password;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_userMessage",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "message_id"))
-    private Collection<Message>message=new ArrayList<>();
-
-    @OneToMany
-    private  Collection<Comment> comments=new ArrayList<>();
-
 
     @Column()
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
@@ -66,7 +54,7 @@ public class User {
     }
 
     public User(Long id, String firstName, String middleName, String lastName, String mobile,
-                String email, String password, Collection<Message> message,
+                String email, String password,
                 Instant createdAt, Instant lastLogin, String intro, String profile) {
         this.id = id;
         this.firstName = firstName;
@@ -75,7 +63,6 @@ public class User {
         this.mobile = mobile;
         this.email = email;
         this.password = password;
-        this.message = message;
         this.createdAt = createdAt;
         this.lastLogin = lastLogin;
         this.intro = intro;
@@ -136,14 +123,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Collection<Message> getMessage() {
-        return message;
-    }
-
-    public void setMessage(Collection<Message> message) {
-        this.message = message;
     }
 
     public Instant getCreatedAt() {
