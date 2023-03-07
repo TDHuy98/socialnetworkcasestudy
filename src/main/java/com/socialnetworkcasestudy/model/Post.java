@@ -13,11 +13,13 @@ public class Post {
     private Long id;
 
     @ManyToOne
-    private User users;
+    private User user;
 
     @Lob
     @Column(nullable = false)
     private String content;
+
+    @Enumerated(EnumType.STRING)
     private PostStatus postStatus;
 
     @OneToMany
@@ -30,10 +32,10 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long id, User users, String content, PostStatus postStatus,
+    public Post(Long id, User user, String content, PostStatus postStatus,
                 Collection<Post> posts, Instant createdAt, Instant updateAt) {
         this.id = id;
-        this.users = users;
+        this.user = user;
         this.content = content;
         this.postStatus = postStatus;
         this.posts = posts;
@@ -49,12 +51,12 @@ public class Post {
         this.id = id;
     }
 
-    public User getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getContent() {
