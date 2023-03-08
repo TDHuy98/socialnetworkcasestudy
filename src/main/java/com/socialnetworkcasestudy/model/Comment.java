@@ -1,6 +1,7 @@
 package com.socialnetworkcasestudy.model;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Collection;

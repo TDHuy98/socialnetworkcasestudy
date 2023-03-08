@@ -1,8 +1,10 @@
 package com.socialnetworkcasestudy.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
+import javax.persistence.*;
+//import jakarta.persistence.*;
+import javax.validation.constraints.*;
+//import jakarta.validation.constraints.Email;
+//import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 

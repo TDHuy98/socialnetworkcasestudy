@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.controller;
 
+import com.socialnetworkcasestudy.dto.LoginRequest;
 import com.socialnetworkcasestudy.dto.SignUpDto;
 import com.socialnetworkcasestudy.exception.UserAlreadyExistException;
 import com.socialnetworkcasestudy.service.AuthService;
@@ -35,5 +36,10 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         return null;
+    }
+    @PostMapping("/login")
+//    @ResponseStatus(HttpStatus.OK)
+    public String login(@RequestBody LoginRequest loginRequest) {
+        return authService.login(loginRequest);
     }
 }
