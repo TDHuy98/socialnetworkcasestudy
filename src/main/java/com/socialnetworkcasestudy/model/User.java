@@ -2,6 +2,7 @@ package com.socialnetworkcasestudy.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,8 +37,8 @@ public class User {
     @Column(nullable = false)
     @Length(min = 3, max = 32)
     private String password;
-
-
+    @NotEmpty
+    private String username;
     @Column()
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant createdAt;
@@ -55,20 +56,30 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String middleName, String lastName, String mobile,
+    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile,
                 String email, String password,
-                Instant createdAt, Instant lastLogin, String intro, String profile) {
+                String username, Instant createdAt, Instant lastLogin, String intro, String profile) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
         this.mobile = mobile;
         this.email = email;
         this.password = password;
+        this.username = username;
         this.createdAt = createdAt;
         this.lastLogin = lastLogin;
         this.intro = intro;
         this.profile = profile;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Long getId() {
@@ -157,5 +168,13 @@ public class User {
 
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

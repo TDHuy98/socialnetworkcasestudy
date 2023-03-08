@@ -1,11 +1,13 @@
 package com.socialnetworkcasestudy.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.socialnetworkcasestudy.dto.SignUpDto;
+import com.socialnetworkcasestudy.model.User;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface AuthService {
+    List<User> getAll();
+
+    SignUpDto signUp(SignUpDto signUpDto);
 }
 
