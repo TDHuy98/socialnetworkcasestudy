@@ -5,12 +5,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-public class User {
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,6 +44,8 @@ public class User {
     private String password;
     @NotEmpty
     private String username;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @Column()
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant createdAt;
@@ -46,8 +53,6 @@ public class User {
     @Column
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant lastLogin;
-
-
     private String intro;
 
     private String profile;
@@ -56,9 +61,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile,
-                String email, String password,
-                String username, Instant createdAt, Instant lastLogin, String intro, String profile) {
+    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile, String email, String password, String username, Instant createdAt, Instant lastLogin, String intro, String profile) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -74,6 +77,13 @@ public class User {
         this.profile = profile;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
     public String getUsername() {
         return username;
     }
@@ -81,6 +91,7 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
 
     public Long getId() {
         return id;
