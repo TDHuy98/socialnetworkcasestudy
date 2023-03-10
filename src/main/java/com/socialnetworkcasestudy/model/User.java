@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.model;
 
+import com.socialnetworkcasestudy.token.Token;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -13,6 +14,7 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
 
 @Entity
 public class User{
@@ -38,12 +40,13 @@ public class User{
     @Column(unique = true, nullable = false)
     @Email
     private String email;
-
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
     @Column(nullable = false)
-    @Length(min = 3, max = 32)
     private String password;
     @NotEmpty
     private String username;
+
     @Enumerated(EnumType.STRING)
     private Role role;
     @Column()
@@ -61,7 +64,7 @@ public class User{
     public User() {
     }
 
-    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile, String email, String password, String username, Instant createdAt, Instant lastLogin, String intro, String profile) {
+    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile, String email, List<Token> tokens, String password, String username, Role role, Instant createdAt, Instant lastLogin, String intro, String profile) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -69,12 +72,22 @@ public class User{
         this.dateOfBirth = dateOfBirth;
         this.mobile = mobile;
         this.email = email;
+        this.tokens = tokens;
         this.password = password;
         this.username = username;
+        this.role = role;
         this.createdAt = createdAt;
         this.lastLogin = lastLogin;
         this.intro = intro;
         this.profile = profile;
+    }
+
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<Token> tokens) {
+        this.tokens = tokens;
     }
 
     public Role getRole() {
@@ -84,8 +97,25 @@ public class User{
     public void setRole(Role role) {
         this.role = role;
     }
+
     public String getUsername() {
         return username;
+    }
+
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
@@ -140,6 +170,11 @@ public class User{
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
 
     public String getPassword() {
         return password;
