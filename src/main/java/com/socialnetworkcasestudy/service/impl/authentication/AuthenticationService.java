@@ -1,23 +1,24 @@
 package com.socialnetworkcasestudy.service.impl.authentication;
 
 import com.socialnetworkcasestudy.config.JwtService;
-import com.socialnetworkcasestudy.dto.UserDetailsDto;
 import com.socialnetworkcasestudy.dto.authentication.AuthenticationRequest;
 import com.socialnetworkcasestudy.dto.authentication.AuthenticationResponse;
 import com.socialnetworkcasestudy.dto.authentication.RegisterRequest;
+import com.socialnetworkcasestudy.exception.ResourceAlreadyExistException;
 import com.socialnetworkcasestudy.model.Role;
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.repository.UserRepository;
-import com.socialnetworkcasestudy.token.Token;
-import com.socialnetworkcasestudy.token.TokenRepository;
-import com.socialnetworkcasestudy.token.TokenType;
+import com.socialnetworkcasestudy.model.token.Token;
+import com.socialnetworkcasestudy.repository.TokenRepository;
+import com.socialnetworkcasestudy.model.token.TokenType;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.Instant;
 
 @Service
 public class AuthenticationService {
@@ -35,7 +36,16 @@ public class AuthenticationService {
     private TokenRepository tokenRepository;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = UserDetailsDto.builder()
+        if (checkUsernameExisted(request) && checkEmailExisted(request) && checkMobileExisted(request)) {
+            throw new ResourceAlreadyExistException("These mobile, email and username have already registed");
+        } else if (checkEmailExisted(request)) {
+            throw new ResourceAlreadyExistException("This email has already registed");
+        } else if (checkMobileExisted(request)) {
+            throw new ResourceAlreadyExistException("This mobile has already registed");
+        } else if (checkUsernameExisted(request)) {
+            throw new ResourceAlreadyExistException("This username has already registed");
+        }
+        var user = User.builder()
                 .firstName(request.getFirstname())
                 .middleName(request.getMiddlename())
                 .lastName(request.getLastname())
@@ -46,7 +56,8 @@ public class AuthenticationService {
                 .dateOfBirth(request.getDateOfBirth())
                 .role(Role.USER)
                 .build();
-        userRepository.save(UserDetailsDtoToUser(user));
+        user.setCreatedAt(Instant.now());
+        userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken).build();
@@ -62,7 +73,7 @@ public class AuthenticationService {
         );
         var user = userRepository.findUserByUsername(request.getUsername())
                 .orElseThrow();
-        var jwtToken = jwtService.generateToken(UserToUserDetailsDto(user));
+        var jwtToken = jwtService.generateToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
@@ -92,12 +103,22 @@ public class AuthenticationService {
         tokenRepository.saveAll(validUserTokens);
     }
 
-
-    private User UserDetailsDtoToUser(UserDetailsDto userDetailsDto) {
-        return modelMapper.map(userDetailsDto, User.class);
+    private boolean checkEmailExisted(RegisterRequest request) {
+        return userRepository.findUserByEmail(request.getEmail()).isPresent();
     }
 
-    private UserDetailsDto UserToUserDetailsDto(User user) {
-        return modelMapper.map(user, UserDetailsDto.class);
+    private boolean checkMobileExisted(RegisterRequest request) {
+        return userRepository.findUserByMobile(request.getMobile()).isPresent();
     }
+
+    private boolean checkUsernameExisted(RegisterRequest request) {
+        return userRepository.findUserByUsername(request.getUsername()).isPresent();
+    }
+//    private User UserDetailsDtoToUser(UserDetailsDto userDetailsDto) {
+//        return modelMapper.map(userDetailsDto, User.class);
+//    }
+//
+//    private UserDetailsDto UserToUserDetailsDto(User user) {
+//        return modelMapper.map(user, UserDetailsDto.class);
+//    }
 }

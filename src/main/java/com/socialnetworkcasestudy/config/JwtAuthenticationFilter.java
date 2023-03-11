@@ -1,6 +1,6 @@
 package com.socialnetworkcasestudy.config;
 
-import com.socialnetworkcasestudy.token.TokenRepository;
+import com.socialnetworkcasestudy.repository.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

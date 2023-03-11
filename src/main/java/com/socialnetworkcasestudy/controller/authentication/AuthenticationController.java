@@ -6,6 +6,7 @@ import com.socialnetworkcasestudy.dto.authentication.RegisterRequest;
 import com.socialnetworkcasestudy.service.impl.authentication.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(service.register(request));
+        return new ResponseEntity<>(service.register(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")

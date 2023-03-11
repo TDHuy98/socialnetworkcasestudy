@@ -1,9 +1,10 @@
 package com.socialnetworkcasestudy.model;
 
-import com.socialnetworkcasestudy.token.Token;
+import com.socialnetworkcasestudy.model.token.Token;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,9 +16,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-
+@Builder
 @Entity
-public class User{
+public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

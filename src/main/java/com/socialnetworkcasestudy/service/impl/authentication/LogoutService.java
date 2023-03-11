@@ -1,6 +1,6 @@
 package com.socialnetworkcasestudy.service.impl.authentication;
 
-import com.socialnetworkcasestudy.token.TokenRepository;
+import com.socialnetworkcasestudy.repository.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

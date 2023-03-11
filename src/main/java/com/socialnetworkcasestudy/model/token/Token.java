@@ -1,4 +1,4 @@
-package com.socialnetworkcasestudy.token;
+package com.socialnetworkcasestudy.model.token;
 
 import com.socialnetworkcasestudy.model.User;
 import jakarta.persistence.*;

@@ -1,5 +1,6 @@
-package com.socialnetworkcasestudy.token;
+package com.socialnetworkcasestudy.repository;
 
+import com.socialnetworkcasestudy.model.token.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
