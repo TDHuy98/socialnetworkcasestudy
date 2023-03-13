@@ -16,14 +16,13 @@ import java.time.Instant;
 
 @Service
 @Transactional
-public class AuthServiceImpl implements AuthService {
+public class AuthServiceImpl{
 
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private ModelMapper modelMapper;
 
-    @Override
     public SignUpDto signUp(SignUpDto signUpDto) {
         if (checkUsernameExisted(signUpDto) && checkEmailExisted(signUpDto) && checkMobileExisted(signUpDto)) {
             throw new ResourceAlreadyExistException("These mobile, email and username have already registed");
