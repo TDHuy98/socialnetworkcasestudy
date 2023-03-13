@@ -15,10 +15,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Optional;
 
 @Service
 public class AuthenticationService {
@@ -103,6 +106,11 @@ public class AuthenticationService {
         tokenRepository.saveAll(validUserTokens);
     }
 
+    public Optional<UserDetails> getCurrentUser() {
+        UserDetails principal = (UserDetails) SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal();
+        return Optional.of(principal);
+    }
     private boolean checkEmailExisted(RegisterRequest request) {
         return userRepository.findUserByEmail(request.getEmail()).isPresent();
     }
@@ -114,11 +122,6 @@ public class AuthenticationService {
     private boolean checkUsernameExisted(RegisterRequest request) {
         return userRepository.findUserByUsername(request.getUsername()).isPresent();
     }
-//    private User UserDetailsDtoToUser(UserDetailsDto userDetailsDto) {
-//        return modelMapper.map(userDetailsDto, User.class);
-//    }
-//
-//    private UserDetailsDto UserToUserDetailsDto(User user) {
-//        return modelMapper.map(user, UserDetailsDto.class);
-//    }
+
+
 }
