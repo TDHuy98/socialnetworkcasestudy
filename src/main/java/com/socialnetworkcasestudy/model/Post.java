@@ -19,6 +19,7 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
+    private String img;
     @Enumerated(EnumType.STRING)
     private PostStatus postStatus;
 
@@ -32,11 +33,12 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long id, User user, String content, PostStatus postStatus,
+    public Post(Long id, User user, String content,String img, PostStatus postStatus,
                 Collection<Post> posts, Instant createdAt, Instant updateAt) {
         this.id = id;
         this.user = user;
         this.content = content;
+        this.img=img;
         this.postStatus = postStatus;
         this.posts = posts;
         this.createdAt = createdAt;
@@ -65,6 +67,14 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public PostStatus getPostStatus() {
