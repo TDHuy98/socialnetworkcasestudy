@@ -5,11 +5,11 @@ import com.socialnetworkcasestudy.model.Post;
 import java.util.List;
 
 public interface PostService {
-    public List<Post> findAllByUser_Id(Long id);
+    List<Post> findAllByUser_Id(Long id);
 
-    public Post save(Post post);
+    Post save(Post post);
 
     void delete(Long id);
 
-
+    Post findById(Long id);
 }
