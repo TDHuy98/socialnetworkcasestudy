@@ -3,6 +3,7 @@ package com.socialnetworkcasestudy.service.impl;
 import com.socialnetworkcasestudy.dto.PostCreationDto;
 import com.socialnetworkcasestudy.dto.PostDto;
 import com.socialnetworkcasestudy.model.Post;
+import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.repository.UserPostRepository;
 import com.socialnetworkcasestudy.service.AuthService;
 import com.socialnetworkcasestudy.service.PostService;
@@ -15,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +35,15 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> findAllByUser_Id(Long id) {
-        return userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto).collect(Collectors.toList());
+        User userFound = userService.findUserById(id);
+        List<PostDto> postOfUser = new java.util.ArrayList<>(userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto)
+                .toList())
+                ;
+
+        postOfUser.forEach(u->u.setFirstname(userFound.getFirstName()));
+        postOfUser.forEach(u->u.setLastname(userFound.getLastName()));
+        Collections.reverse(postOfUser);
+        return postOfUser;
     }
 
     @Override
@@ -60,7 +71,7 @@ public class PostServiceImpl implements PostService {
     }
     @Override
     public List<PostDto> allPost(){
-      return userPostRepository.findAll().stream().map(this::postToPostDto).collect(Collectors.toList());
+      return userPostRepository.findAll().stream().map(this::postToPostDto).toList();
     }
 
     private PostDto postToPostDto(Post post){

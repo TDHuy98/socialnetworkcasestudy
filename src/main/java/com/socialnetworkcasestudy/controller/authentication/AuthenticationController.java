@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.controller.authentication;
 
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.dto.authentication.AuthenticationRequest;
 import com.socialnetworkcasestudy.dto.authentication.AuthenticationResponse;
 import com.socialnetworkcasestudy.dto.authentication.RegisterRequest;
@@ -26,5 +27,11 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(service.authenticate(request));
+    }
+
+    @GetMapping("/getCurrentUser")
+    public ResponseEntity<UserDto> getCurrentUserLoggedIn() {
+        UserDto loggedInUser = service.getCurrentUser().orElseThrow(() -> new IllegalArgumentException("User Not Found"));
+        return ResponseEntity.ok(loggedInUser);
     }
 }

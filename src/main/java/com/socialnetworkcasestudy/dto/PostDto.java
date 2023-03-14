@@ -4,15 +4,20 @@ package com.socialnetworkcasestudy.dto;
 public class PostDto {
     private Long id;
     private Long userId;
+
+    private String firstname;
+    private String lastname;
     private String content;
     private String postStatus;
 
     public PostDto() {
     }
 
-    public PostDto(Long id, Long userId, String content, String postStatus) {
+    public PostDto(Long id, Long userId, String firstname, String lastname, String content, String postStatus) {
         this.id = id;
         this.userId = userId;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.content = content;
         this.postStatus = postStatus;
     }
@@ -31,6 +36,22 @@ public class PostDto {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getContent() {

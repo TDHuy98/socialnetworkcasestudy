@@ -4,6 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtException;
 
 @SpringBootApplication
 public class SocialnetworkcasestudyApplication {
@@ -16,4 +19,5 @@ public class SocialnetworkcasestudyApplication {
     public ModelMapper modelMapper(){
         return new ModelMapper();
     };
+
 }
