@@ -1,5 +1,7 @@
 package com.socialnetworkcasestudy.config;
 
+import com.socialnetworkcasestudy.model.User;
+import com.socialnetworkcasestudy.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -13,11 +15,15 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String SECRET_KEY="2646294A404E635266556A586E5A7234753778214125442A472D4B6150645367";
+
+    @Autowired
+    private UserService userService;
+    private static final String SECRET_KEY = "2646294A404E635266556A586E5A7234753778214125442A472D4B6150645367";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -36,11 +42,13 @@ public class JwtService {
             Map<String, Object> extractClaim,
             UserDetails userDetails
     ) {
+        Optional<User> currentLoggedin = userService.findUserByUserName(userDetails.getUsername());
         return Jwts
                 .builder().setClaims(extractClaim)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60*60 * 24))
+                .setId(String.valueOf(currentLoggedin.get().getId()))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

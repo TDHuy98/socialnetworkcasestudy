@@ -9,9 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserPostRepository extends JpaRepository<Post, Long>, JpaSpecificationExecutor<Post> {
-    @Query("select p from Post p where p.user.id=:id")
+    @Query("select p from Post p where p.user.id = ?1")
     List<Post> findAllByUsers_Id(Long id);
-
-
 
 }

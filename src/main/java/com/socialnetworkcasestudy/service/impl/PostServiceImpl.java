@@ -1,6 +1,7 @@
 package com.socialnetworkcasestudy.service.impl;
 
 import com.socialnetworkcasestudy.dto.PostCreationDto;
+import com.socialnetworkcasestudy.dto.PostDto;
 import com.socialnetworkcasestudy.model.Post;
 import com.socialnetworkcasestudy.repository.UserPostRepository;
 import com.socialnetworkcasestudy.service.AuthService;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -29,8 +31,8 @@ public class PostServiceImpl implements PostService {
     private AuthService authService;
 
     @Override
-    public List<Post> findAllByUser_Id(Long id) {
-        return userPostRepository.findAllByUsers_Id(id);
+    public List<PostDto> findAllByUser_Id(Long id) {
+        return userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto).collect(Collectors.toList());
     }
 
     @Override
@@ -55,5 +57,16 @@ public class PostServiceImpl implements PostService {
 
     private Post postCreationDtoToPost(PostCreationDto postCreationDto) {
         return modelMapper.map(postCreationDto, Post.class);
+    }
+    @Override
+    public List<PostDto> allPost(){
+      return userPostRepository.findAll().stream().map(this::postToPostDto).collect(Collectors.toList());
+    }
+
+    private PostDto postToPostDto(Post post){
+        return modelMapper.map(post, PostDto.class);
+    }
+    private Post PostDtoToPost(PostDto postDto){
+        return modelMapper.map(postDto,Post.class);
     }
 }
