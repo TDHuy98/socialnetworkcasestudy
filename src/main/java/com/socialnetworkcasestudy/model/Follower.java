@@ -3,7 +3,6 @@ package com.socialnetworkcasestudy.model;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.util.Collection;
 
 @Entity
 public class Follower {
@@ -11,13 +10,13 @@ public class Follower {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_Follow",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "follow _id"))
-    private Collection<User> userId;
-
+    @ManyToOne
+    @JoinColumn(name = "user1")
+    private User user1;
+    @ManyToOne
+    @JoinColumn(name = "user2")
+    private User user2;
+    @Enumerated(EnumType.STRING)
     private FollowerType followerType;
 
     private Instant createdAt;
@@ -26,9 +25,10 @@ public class Follower {
     public Follower() {
     }
 
-    public Follower(Long id, Collection<User> userId, FollowerType followerType, Instant createdAt, Instant updatedAt) {
+    public Follower(Long id, User user1, User user2, FollowerType followerType, Instant createdAt, Instant updatedAt) {
         this.id = id;
-        this.userId = userId;
+        this.user1 = user1;
+        this.user2 = user2;
         this.followerType = followerType;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -42,12 +42,20 @@ public class Follower {
         this.id = id;
     }
 
-    public Collection<User> getUserId() {
-        return userId;
+    public User getUser1() {
+        return user1;
     }
 
-    public void setUserId(Collection<User> userId) {
-        this.userId = userId;
+    public void setUser1(User user1) {
+        this.user1 = user1;
+    }
+
+    public User getUser2() {
+        return user2;
+    }
+
+    public void setUser2(User user2) {
+        this.user2 = user2;
     }
 
     public FollowerType getFollowerType() {

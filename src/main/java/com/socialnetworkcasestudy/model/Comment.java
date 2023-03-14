@@ -12,11 +12,11 @@ public class Comment {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "userId")
-    private User userId;
+    private User user;
     private String content;
     @ManyToOne
     @JoinColumn(name = "postId")
-    private Post postId;
+    private Post post;
 
     @OneToMany
     @JoinColumn(name = "parentId")

@@ -1,14 +1,25 @@
 package com.socialnetworkcasestudy.model;
 
+import com.socialnetworkcasestudy.model.token.Token;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
+@Builder
 @Entity
-public class User {
+public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +33,8 @@ public class User {
     @Column
     private String lastName;
 
-    @Column(unique = true)
+    @Column
+    private Date dateOfBirth;
 
     @Length(min = 10, max = 10)
     private String mobile;
@@ -30,12 +42,15 @@ public class User {
     @Column(unique = true, nullable = false)
     @Email
     private String email;
-
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
     @Column(nullable = false)
-    @Length(min = 3, max = 32)
     private String password;
+    @NotEmpty
+    private String username;
 
-
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @Column()
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant createdAt;
@@ -43,8 +58,6 @@ public class User {
     @Column
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant lastLogin;
-
-
     private String intro;
 
     private String profile;
@@ -53,21 +66,64 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String middleName, String lastName, String mobile,
-                String email, String password,
-                Instant createdAt, Instant lastLogin, String intro, String profile) {
+    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile, String email, List<Token> tokens, String password, String username, Role role, Instant createdAt, Instant lastLogin, String intro, String profile) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
         this.mobile = mobile;
         this.email = email;
+        this.tokens = tokens;
         this.password = password;
+        this.username = username;
+        this.role = role;
         this.createdAt = createdAt;
         this.lastLogin = lastLogin;
         this.intro = intro;
         this.profile = profile;
     }
+
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<Token> tokens) {
+        this.tokens = tokens;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 
     public Long getId() {
         return id;
@@ -117,6 +173,11 @@ public class User {
         this.email = email;
     }
 
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+
     public String getPassword() {
         return password;
     }
@@ -155,5 +216,13 @@ public class User {
 
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
