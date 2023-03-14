@@ -1,6 +1,7 @@
 package com.socialnetworkcasestudy.service.impl.authentication;
 
 import com.socialnetworkcasestudy.config.JwtService;
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.dto.authentication.AuthenticationRequest;
 import com.socialnetworkcasestudy.dto.authentication.AuthenticationResponse;
 import com.socialnetworkcasestudy.dto.authentication.RegisterRequest;
@@ -18,9 +19,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.Instant;
+import java.util.Optional;
 
 @Service
 public class AuthenticationService implements AuthService {
@@ -36,6 +40,10 @@ public class AuthenticationService implements AuthService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private TokenRepository tokenRepository;
+
+//    @Autowired
+//    private JwtDecoder jwtDecoder;
+
 
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
@@ -67,10 +75,12 @@ public class AuthenticationService implements AuthService {
     }
 
     @Override
-    public Object getCurrentUser() {
-        return SecurityContextHolder
+    public Optional<UserDto> getCurrentUser() {
+        User principal = (User) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
-
+        UserDto userDto = new UserDto(principal.getId(), principal.getFirstName(), principal.getMiddleName(), principal.getLastName(), principal.getUsername()
+                , principal.getEmail(), principal.getMobile(), (Date) principal.getDateOfBirth());
+        return Optional.of(userDto);
     }
 
     @Override

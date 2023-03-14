@@ -22,8 +22,6 @@ public class PostController {
     private PostServiceImpl postService;
     @Autowired
     private FriendService friendService;
-    @Autowired
-    private UserPostRepository userPostRepository;
 
     @GetMapping("/{id}")
     public List<PostDto> feed(@PathVariable Long id){

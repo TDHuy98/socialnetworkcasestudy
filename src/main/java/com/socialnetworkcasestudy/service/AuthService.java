@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.service;
 
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.dto.authentication.AuthenticationRequest;
 import com.socialnetworkcasestudy.dto.authentication.AuthenticationResponse;
 import com.socialnetworkcasestudy.dto.authentication.RegisterRequest;
@@ -15,7 +16,7 @@ public interface AuthService {
     AuthenticationResponse authenticate(AuthenticationRequest request);
 
 
-    Object getCurrentUser();
+    Optional<UserDto> getCurrentUser();
 
     void saveUserToken(User user, String jwtToken);
 
