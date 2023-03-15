@@ -27,5 +27,7 @@ public interface AuthService {
     boolean checkMobileExisted(RegisterRequest request);
 
     boolean checkUsernameExisted(RegisterRequest request);
+
+    UserDto getUserById(Long id);
 }
 

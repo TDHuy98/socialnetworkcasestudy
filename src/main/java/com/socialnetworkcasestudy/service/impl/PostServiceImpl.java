@@ -10,16 +10,12 @@ import com.socialnetworkcasestudy.service.PostService;
 import com.socialnetworkcasestudy.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -48,8 +44,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostCreationDto createPost(PostCreationDto postCreationDto) {
-        UserDetails loggedInUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        postCreationDto.setUserId(userService.findUserByUserName(loggedInUser.getUsername()).get().getId());
+//        UserDetails loggedInUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        postCreationDto.setUserId(userService.findUserByUserName(loggedInUser.getUsername()).get().getId());
         Post postCreation = postCreationDtoToPost(postCreationDto);
         postCreation.setCreatedAt(Instant.now());
         userPostRepository.save(postCreation);
