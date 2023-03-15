@@ -2,7 +2,9 @@ package com.socialnetworkcasestudy.service.impl;
 
 import com.socialnetworkcasestudy.dto.PostCreationDto;
 import com.socialnetworkcasestudy.dto.PostDto;
+import com.socialnetworkcasestudy.dto.PostModifierDto;
 import com.socialnetworkcasestudy.model.Post;
+import com.socialnetworkcasestudy.model.PostStatus;
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.repository.UserPostRepository;
 import com.socialnetworkcasestudy.service.AuthService;
@@ -18,8 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -32,8 +32,9 @@ public class PostServiceImpl implements PostService {
     private UserService userService;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private FriendServiceImpl friendService;
 
-    @Override
     public List<PostDto> findAllByUser_Id(Long id) {
         User userFound = userService.findUserById(id);
         List<PostDto> postOfUser = new java.util.ArrayList<>(userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto)
@@ -61,9 +62,17 @@ public class PostServiceImpl implements PostService {
         userPostRepository.deleteById(id);
     }
 
-    @Override
-    public Post findById(Long id) {
-        return userPostRepository.findById(id).get();
+    public PostModifierDto findById(Long id) {
+        return postToPostModifierDto(userPostRepository.findById(id).get());
+    }
+
+
+    private Post postModifierDtoToPost(PostModifierDto postModifierDto) {
+        return modelMapper.map(postModifierDto, Post.class);
+    }
+
+    private PostModifierDto postToPostModifierDto(Post post) {
+        return modelMapper.map(post, PostModifierDto.class);
     }
 
     private Post postCreationDtoToPost(PostCreationDto postCreationDto) {
@@ -80,4 +89,12 @@ public class PostServiceImpl implements PostService {
     private Post PostDtoToPost(PostDto postDto){
         return modelMapper.map(postDto,Post.class);
     }
+
+    public void changeStatus(long id, PostStatus postStatus) {
+        PostModifierDto postModifierDto = findById(id);
+        postModifierDto.setPostStatus(postStatus);
+    }
+
+
+
 }

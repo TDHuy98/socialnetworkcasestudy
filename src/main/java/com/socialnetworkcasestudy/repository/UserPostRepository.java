@@ -12,4 +12,6 @@ public interface UserPostRepository extends JpaRepository<Post, Long>, JpaSpecif
     @Query("select p from Post p where p.user.id = ?1")
     List<Post> findAllByUsers_Id(Long id);
 
+
+
 }

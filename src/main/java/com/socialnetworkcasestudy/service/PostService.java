@@ -7,13 +7,12 @@ import com.socialnetworkcasestudy.model.Post;
 import java.util.List;
 
 public interface PostService {
-    List<PostDto> findAllByUser_Id(Long id);
 
     PostCreationDto createPost(PostCreationDto postCreationDto);
 
     void delete(Long id);
 
-    Post findById(Long id);
+
 
     List<PostDto> allPost();
 }
