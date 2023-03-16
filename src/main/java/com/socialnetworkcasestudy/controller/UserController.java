@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.controller;
 
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.service.UserService;
 import com.socialnetworkcasestudy.service.impl.UserServiceImpl;
@@ -20,8 +21,8 @@ public class UserController {
     UserServiceImpl userService;
 
     @GetMapping("/{username}")
-    public ResponseEntity<List<User>> getAllUser(@PathVariable String username){
-        return new ResponseEntity<>(userService.findUsersBySearchName(username), HttpStatus.OK);
+    public ResponseEntity<List<UserDto>> getAllUser(@PathVariable String username){
+        return ResponseEntity.ok(userService.findUsersBySearchName(username));
     }
 
 

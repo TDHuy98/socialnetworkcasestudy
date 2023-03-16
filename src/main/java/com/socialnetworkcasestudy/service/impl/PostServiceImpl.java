@@ -3,6 +3,7 @@ package com.socialnetworkcasestudy.service.impl;
 import com.socialnetworkcasestudy.dto.PostCreationDto;
 import com.socialnetworkcasestudy.dto.PostDto;
 import com.socialnetworkcasestudy.model.Post;
+import com.socialnetworkcasestudy.model.PostStatus;
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.repository.UserPostRepository;
 import com.socialnetworkcasestudy.service.AuthService;
@@ -65,9 +66,16 @@ public class PostServiceImpl implements PostService {
     private Post postCreationDtoToPost(PostCreationDto postCreationDto) {
         return modelMapper.map(postCreationDto, Post.class);
     }
+
     @Override
     public List<PostDto> allPost(){
       return userPostRepository.findAll().stream().map(this::postToPostDto).toList();
+    }
+
+
+    @Override
+    public List<PostDto> ShowPostByIdAndPostStatus (Long id) {
+        return userPostRepository.ShowPostByIdAndPostStatus(id).stream().map(this::postToPostDto).toList();
     }
 
     private PostDto postToPostDto(Post post){

@@ -3,6 +3,7 @@ package com.socialnetworkcasestudy.controller;
 import com.socialnetworkcasestudy.dto.PostCreationDto;
 import com.socialnetworkcasestudy.dto.PostDto;
 import com.socialnetworkcasestudy.model.Post;
+import com.socialnetworkcasestudy.model.PostStatus;
 import com.socialnetworkcasestudy.repository.UserPostRepository;
 import com.socialnetworkcasestudy.service.FriendService;
 import com.socialnetworkcasestudy.service.impl.PostServiceImpl;
@@ -63,4 +64,11 @@ public class PostController {
 //        post.setPostStatus(PostStatus.Delete);
 //        return postService.save(post);
 //    }
+
+    @GetMapping("/post/{id}")
+    public List<PostDto> ShowPostByIdStatusPublic(@PathVariable Long id){
+        return postService.ShowPostByIdAndPostStatus(id);
+
+
+    }
 }

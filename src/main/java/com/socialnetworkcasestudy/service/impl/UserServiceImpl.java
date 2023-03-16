@@ -1,8 +1,10 @@
 package com.socialnetworkcasestudy.service.impl;
 
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.repository.UserRepository;
 import com.socialnetworkcasestudy.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +16,12 @@ import java.util.Optional;
 @Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
+    private ModelMapper modelMapper;
+    @Autowired
     private UserRepository userRepository;
 
     @Override
-    public Optional<User> findUserByUserName(String username){
+    public Optional<User> findUserByUserName(String username) {
         return userRepository.findUserByUsername(username);
     }
 
@@ -27,13 +31,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public  User findUserById(Long id){
+    public User findUserById(Long id) {
         return userRepository.findUserById(id);
     }
 
     @Override
-    public List<User> findUsersBySearchName(String username) {
-        return userRepository.findUsersBySearchName(username);
+    public List<UserDto> findUsersBySearchName(String username) {
+
+        return userRepository.findUsersBySearchName(username)
+                .stream()
+                .map(this::userToUserDto)
+                .toList();
+    }
+
+    private UserDto userToUserDto(User user) {
+        return modelMapper.map(user, UserDto.class);
     }
 
 

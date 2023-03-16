@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.service;
 
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.model.User;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface UserService {
 
     User findUserById(Long id);
 
-    List<User> findUsersBySearchName(String username);
+    List<UserDto> findUsersBySearchName(String username);
 
 
 }
