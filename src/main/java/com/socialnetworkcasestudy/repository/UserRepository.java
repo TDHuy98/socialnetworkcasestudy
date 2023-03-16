@@ -6,11 +6,14 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-    @Query("select u from User u where upper(u.username) like upper(?1)")
+    @Query(value = "select * from User where User.username like concat('%',\"N\",'%')" , nativeQuery = true)
+    List<User> findUsersBySearchName(String username);
+
     Optional<User> findUserByUsername(String username);
 
     @Query("select u from User u where u.mobile like ?1")
@@ -23,6 +26,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     @Query("select u from User u where u.id = ?1")
     User findUserById(Long id);
+
 
 
 }
