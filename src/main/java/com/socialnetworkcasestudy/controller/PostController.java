@@ -33,14 +33,8 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostCreationDto> postStatus(@RequestBody PostCreationDto post
-//            ,@RequestParam MultipartFile upImg
-    ){
-//        String nameFile=  upImg.getOriginalFilename();
-
+    public ResponseEntity<PostCreationDto> postStatus(@RequestBody PostCreationDto post){
         try {
-//            FileCopyUtils.copy(upImg.getBytes(),new File("C:\\Users\\Admin\\Desktop\\m6Fe2\\src\\assets\\images\\"+nameFile));
-//            post.setImg("/images/"+nameFile);
             postService.createPost(post);
             return new ResponseEntity<>(post, HttpStatus.CREATED);
         } catch (Exception e){
@@ -62,7 +56,7 @@ public class PostController {
     }
 
     @PutMapping("/delete/{id}")
-    public void delete(@PathVariable long id){
-        postService.changeStatus(id,PostStatus.Delete);
+    public Post delete(@PathVariable long id) {
+        return postService.changeStatus(id, PostStatus.Delete);
     }
 }

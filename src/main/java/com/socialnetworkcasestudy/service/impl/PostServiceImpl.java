@@ -63,7 +63,7 @@ public class PostServiceImpl implements PostService {
     }
 
     public PostModifierDto findById(Long id) {
-        return postToPostModifierDto(userPostRepository.findById(id).get());
+        return  postToPostModifierDto(userPostRepository.findById(id).get()) ;
     }
 
 
@@ -90,9 +90,14 @@ public class PostServiceImpl implements PostService {
         return modelMapper.map(postDto,Post.class);
     }
 
-    public void changeStatus(long id, PostStatus postStatus) {
-        PostModifierDto postModifierDto = findById(id);
-        postModifierDto.setPostStatus(postStatus);
+    public Post save(Post post){
+        return userPostRepository.save(post);
+    }
+
+    public Post changeStatus(long id, PostStatus postStatus) {
+        Post post= postModifierDtoToPost(findById(id)) ;
+        post.setPostStatus(postStatus);
+        return save(post);
     }
 
 
