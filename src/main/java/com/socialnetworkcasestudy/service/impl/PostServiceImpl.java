@@ -36,11 +36,10 @@ public class PostServiceImpl implements PostService {
     public List<PostDto> findAllByUser_Id(Long id) {
         User userFound = userService.findUserById(id);
         List<PostDto> postOfUser = new java.util.ArrayList<>(userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto)
-                .toList())
-                ;
+                .toList());
 
-        postOfUser.forEach(u->u.setFirstname(userFound.getFirstName()));
-        postOfUser.forEach(u->u.setLastname(userFound.getLastName()));
+        postOfUser.forEach(u -> u.setFirstname(userFound.getFirstName()));
+        postOfUser.forEach(u -> u.setLastname(userFound.getLastName()));
         Collections.reverse(postOfUser);
         return postOfUser;
     }
@@ -74,16 +73,23 @@ public class PostServiceImpl implements PostService {
     private Post postCreationDtoToPost(PostCreationDto postCreationDto) {
         return modelMapper.map(postCreationDto, Post.class);
     }
+
     @Override
-    public List<PostDto> allPost(){
-      return userPostRepository.findAll().stream().map(this::postToPostDto).toList();
+    public List<PostDto> allPost() {
+        return userPostRepository.findAll().stream().map(this::postToPostDto).toList();
     }
 
-    private PostDto postToPostDto(Post post){
+    private PostDto postToPostDto(Post post) {
         return modelMapper.map(post, PostDto.class);
     }
-    private Post PostDtoToPost(PostDto postDto){
-        return modelMapper.map(postDto,Post.class);
+
+    private Post PostDtoToPost(PostDto postDto) {
+        return modelMapper.map(postDto, Post.class);
+    }
+
+    @Override
+    public List<Post> findAll() {
+        return userPostRepository.findAll();
     }
 
     public Post save(Post post){

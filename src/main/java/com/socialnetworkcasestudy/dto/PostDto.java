@@ -4,19 +4,19 @@ package com.socialnetworkcasestudy.dto;
 public class PostDto {
     private Long id;
     private Long userId;
-
+    private String profile;
     private String img;
-
     private String firstname;
     private String lastname;
     private String content;
     private String postStatus;
     private Long postId;
+    private Long countLike;
 
     public PostDto() {
     }
 
-    public PostDto(Long id, Long userId, String img, String firstname, String lastname, String content, String postStatus, Long postId) {
+    public PostDto(Long id, Long userId, String firstname, String lastname, String content,String profile, String postStatus) {
         this.id = id;
         this.userId = userId;
         this.img = img;
@@ -25,6 +25,7 @@ public class PostDto {
         this.content = content;
         this.postStatus = postStatus;
         this.postId = postId;
+        this.profile=profile;
     }
 
     public String getImg() {
@@ -33,6 +34,25 @@ public class PostDto {
 
     public void setImg(String img) {
         this.img = img;
+        this.countLike = countLike;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        profile = profile;
+    }
+
+
+
+    public Long getCountLike() {
+        return countLike;
+    }
+
+    public void setCountLike(Long countLike) {
+        this.countLike = countLike;
     }
 
     public Long getId() {

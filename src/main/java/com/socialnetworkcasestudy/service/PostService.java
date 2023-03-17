@@ -15,4 +15,6 @@ public interface PostService {
 
 
     List<PostDto> allPost();
+
+    List<Post> findAll();
 }

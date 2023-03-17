@@ -18,9 +18,49 @@ public class Comment {
     @JoinColumn(name = "postId")
     private Post post;
 
-    @OneToMany
-    @JoinColumn(name = "parentId")
-    private Collection<Comment> comments = new ArrayList<>();
 
 
+    public Comment(Long id, User user, String content, Post post) {
+        this.id = id;
+        this.user = user;
+        this.content = content;
+        this.post = post;
+
+    }
+
+    public Comment() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
 }

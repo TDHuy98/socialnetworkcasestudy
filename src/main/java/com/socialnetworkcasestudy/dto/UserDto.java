@@ -1,6 +1,7 @@
 package com.socialnetworkcasestudy.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.NonNull;
 
 import java.util.Date;
 

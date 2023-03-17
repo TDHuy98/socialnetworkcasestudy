@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
+import java.util.List;
+
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
     @Query("select u from User u where upper(u.username) like upper(?1)")
