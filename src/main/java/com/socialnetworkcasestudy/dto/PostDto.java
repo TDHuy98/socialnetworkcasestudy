@@ -1,6 +1,8 @@
 package com.socialnetworkcasestudy.dto;
 
 
+import jakarta.persistence.Column;
+
 public class PostDto {
     private Long id;
     private Long userId;
@@ -12,7 +14,7 @@ public class PostDto {
     private String content;
     private String postStatus;
     private Long postId;
-
+    private Long countLike;
     public PostDto() {
     }
 
