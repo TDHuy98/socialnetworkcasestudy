@@ -39,6 +39,7 @@ public class PostServiceImpl implements PostService {
                 .toList());
         postOfUser.forEach(u -> u.setProfile(userFound.getProfile()));
         postOfUser.forEach(u -> u.setFirstname(userFound.getFirstName()));
+        postOfUser.forEach(u -> u.setMiddlename(userFound.getMiddleName()));
         postOfUser.forEach(u -> u.setLastname(userFound.getLastName()));
         Collections.reverse(postOfUser);
         return postOfUser;
