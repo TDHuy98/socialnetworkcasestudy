@@ -12,7 +12,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -61,7 +60,7 @@ public class User implements UserDetails{
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant lastLogin;
     private String intro;
-
+@Lob
     private String profile;
 
 

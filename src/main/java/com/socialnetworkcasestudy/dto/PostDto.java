@@ -7,6 +7,7 @@ public class PostDto {
     private String profile;
     private String img;
     private String firstname;
+    private String middlename;
     private String lastname;
     private String content;
     private String postStatus;
@@ -16,42 +17,18 @@ public class PostDto {
     public PostDto() {
     }
 
-    public PostDto(Long id, Long userId, String firstname, String lastname, String content,String profile, String postStatus) {
+    public PostDto(Long id, Long userId, String profile, String img, String firstname, String middlename, String lastname,
+                   String content, String postStatus, Long postId, Long countLike) {
         this.id = id;
         this.userId = userId;
+        this.profile = profile;
         this.img = img;
         this.firstname = firstname;
+        this.middlename = middlename;
         this.lastname = lastname;
         this.content = content;
         this.postStatus = postStatus;
         this.postId = postId;
-        this.profile=profile;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-        this.countLike = countLike;
-    }
-
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        profile = profile;
-    }
-
-
-
-    public Long getCountLike() {
-        return countLike;
-    }
-
-    public void setCountLike(Long countLike) {
         this.countLike = countLike;
     }
 
@@ -71,12 +48,36 @@ public class PostDto {
         this.userId = userId;
     }
 
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getFirstname() {
         return firstname;
     }
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
+    }
+
+    public String getMiddlename() {
+        return middlename;
+    }
+
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
     }
 
     public String getLastname() {
@@ -109,5 +110,13 @@ public class PostDto {
 
     public void setPostId(Long postId) {
         this.postId = postId;
+    }
+
+    public Long getCountLike() {
+        return countLike;
+    }
+
+    public void setCountLike(Long countLike) {
+        this.countLike = countLike;
     }
 }

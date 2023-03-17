@@ -37,7 +37,7 @@ public class PostServiceImpl implements PostService {
         User userFound = userService.findUserById(id);
         List<PostDto> postOfUser = new java.util.ArrayList<>(userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto)
                 .toList());
-
+        postOfUser.forEach(u -> u.setProfile(userFound.getProfile()));
         postOfUser.forEach(u -> u.setFirstname(userFound.getFirstName()));
         postOfUser.forEach(u -> u.setLastname(userFound.getLastName()));
         Collections.reverse(postOfUser);
@@ -58,7 +58,7 @@ public class PostServiceImpl implements PostService {
     }
 
     public PostModifierDto findById(Long id) {
-        return  postToPostModifierDto(userPostRepository.findById(id).get()) ;
+        return postToPostModifierDto(userPostRepository.findById(id).get());
     }
 
 
@@ -92,16 +92,15 @@ public class PostServiceImpl implements PostService {
         return userPostRepository.findAll();
     }
 
-    public Post save(Post post){
+    public Post save(Post post) {
         return userPostRepository.save(post);
     }
 
     public Post changeStatus(long id, PostStatus postStatus) {
-        Post post= postModifierDtoToPost(findById(id)) ;
+        Post post = postModifierDtoToPost(findById(id));
         post.setPostStatus(postStatus);
         return save(post);
     }
-
 
 
 }
