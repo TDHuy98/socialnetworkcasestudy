@@ -24,9 +24,10 @@ public class PostController {
     private FriendService friendService;
 
     @GetMapping("/{id}")
-    public List<PostDto> feed(@PathVariable Long id){
+    public List<PostDto> feed(@PathVariable Long id) {
         return postService.findAllByUser_Id(id);
     }
+
     @PostMapping
     public ResponseEntity<PostCreationDto> postStatus(@RequestBody PostCreationDto post
 //            ,@RequestParam MultipartFile upImg
@@ -38,21 +39,25 @@ public class PostController {
 //            post.setImg("/images/"+nameFile);
             postService.createPost(post);
             return new ResponseEntity<>(post, HttpStatus.CREATED);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ResponseEntity<>(post,HttpStatus.CONFLICT);
+        return new ResponseEntity<>(post, HttpStatus.CONFLICT);
     }
 
-
+    @GetMapping
+    public List<Post> showAllPost() {
+        return postService.findAll();
+    }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+
+    public void delete(@PathVariable Long id) {
         postService.delete(id);
     }
 
 
     @GetMapping("/findById/{id}")
-    public Post findById(@PathVariable Long id){
+    public Post findById(@PathVariable Long id) {
         return postService.findById(id);
     }
 

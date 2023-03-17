@@ -1,7 +1,6 @@
 package com.socialnetworkcasestudy.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.NonNull;
 
 import java.util.Date;
 
@@ -11,6 +10,7 @@ public class UserDto {
     private String middlename;
     private String lastname;
     private String username;
+    private String profile;
     private String email;
     private String mobile;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"yyyy-MM-dd"})
@@ -19,12 +19,13 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long id, String firstname, String middlename, String lastname, String username, String email, String mobile, Date dateOfBirth) {
+    public UserDto(Long id, String firstname, String middlename, String lastname, String username, String img, String email, String mobile, Date dateOfBirth) {
         this.id = id;
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
         this.username = username;
+        this.profile = img;
         this.email = email;
         this.mobile = mobile;
         this.dateOfBirth = dateOfBirth;
@@ -92,5 +93,13 @@ public class UserDto {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 }

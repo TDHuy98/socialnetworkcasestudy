@@ -77,7 +77,7 @@ public class AuthenticationService implements AuthService {
         User principal = (User) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         UserDto userDto = new UserDto(principal.getId(), principal.getFirstName(), principal.getMiddleName(), principal.getLastName(), principal.getUsername()
-                , principal.getEmail(), principal.getMobile(), (Date) principal.getDateOfBirth());
+                , principal.getProfile(), principal.getEmail(), principal.getMobile(), (Date) principal.getDateOfBirth());
         return Optional.of(userDto);
     }
 

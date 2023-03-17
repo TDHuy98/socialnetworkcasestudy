@@ -1,5 +1,7 @@
 package com.socialnetworkcasestudy.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -9,10 +11,12 @@ public class Friend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @JsonProperty
     @ManyToOne
     @JoinColumn(name = "sourceId")
     private User source;
+    @JsonProperty
+
     @ManyToOne
     @JoinColumn(name = "targetId")
     private User target;

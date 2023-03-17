@@ -1,9 +1,12 @@
 package com.socialnetworkcasestudy.service.impl;
 
+import com.socialnetworkcasestudy.dto.FriendDto;
 import com.socialnetworkcasestudy.model.Friend;
 import com.socialnetworkcasestudy.model.FriendshipStatus;
 import com.socialnetworkcasestudy.repository.UserFriendRepository;
 import com.socialnetworkcasestudy.service.FriendService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,16 +17,17 @@ import java.util.Optional;
 @Service
 @Transactional
 public class FriendServiceImpl implements FriendService {
-    //    @Autowired
+    @Autowired
     private UserFriendRepository userFriendRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
-    public FriendServiceImpl(UserFriendRepository userFriendRepository) {
-        this.userFriendRepository = userFriendRepository;
-    }
 
     @Override
     public List<Friend> findAll() {
-        return userFriendRepository.findAll();
+        return userFriendRepository.findAll()
+//                .stream().map(this::friendToFriendDto).toList()
+                ;
     }
 
     @Override
@@ -87,10 +91,14 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public void requestCancer(Friend friend) {
         for (Friend f : userFriendRepository.findAll()) {
-            if (f.getTarget().getId() == friend.getTarget().getId() && f.getSource().getId()==friend.getTarget().getId()){
+            if (f.getTarget().getId() == friend.getTarget().getId() && f.getSource().getId() == friend.getTarget().getId()) {
             }
-            if (f.getTarget().getId() == friend.getSource().getId() && f.getSource().getId() == friend.getTarget().getId()){
+            if (f.getTarget().getId() == friend.getSource().getId() && f.getSource().getId() == friend.getTarget().getId()) {
             }
         }
+    }
+
+    private FriendDto friendToFriendDto(Friend friend){
+        return modelMapper.map(friend,FriendDto.class);
     }
 }

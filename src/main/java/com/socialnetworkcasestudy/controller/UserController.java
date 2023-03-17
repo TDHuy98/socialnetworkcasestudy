@@ -2,12 +2,11 @@ package com.socialnetworkcasestudy.controller;
 
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.service.UserService;
-import com.socialnetworkcasestudy.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -22,15 +21,11 @@ public class UserController {
         return userService.findAll();
     }
 
-    //    Thêm user
-    @PostMapping
-    public void create(@RequestBody User user) {
-        userService.save(user);
-    }
+
 
     //    Hiển thị user muốn thêm
     @GetMapping("/{id}")
-    public User showUserByID(@PathVariable int id) {
+    public Optional<User> showUserByID(@PathVariable Long id) {
         return userService.findById(id);
     }
 
@@ -39,8 +34,5 @@ public class UserController {
 
 
     //    Block user
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable int id) {
-        userService.delete(id);
-    }
+
 }

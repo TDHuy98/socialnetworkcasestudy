@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.controller;
 
+import com.socialnetworkcasestudy.dto.FriendDto;
 import com.socialnetworkcasestudy.model.Friend;
 import com.socialnetworkcasestudy.model.FriendshipStatus;
 import com.socialnetworkcasestudy.service.FriendService;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("/friends")
 public class FriendController {
     @Autowired
-    FriendService friendService;
+    private FriendService friendService;
 
 
     @GetMapping
@@ -36,12 +37,14 @@ public class FriendController {
 
     @GetMapping("/listActiveFriends/{id}/{friendStatus}")
     public List<Friend> showAllActiveFriends(@PathVariable long id, FriendshipStatus friendshipStatus) {
-        return friendService.getActiveFriendList(id,friendshipStatus);
+        return friendService.getActiveFriendList(id, friendshipStatus);
     }
+
     @GetMapping("/listNewFriends/{id}")
     public List<Friend> showAllNewFriends(@PathVariable long id) {
         return friendService.getNewFriendList(id);
     }
+
     @GetMapping("/listBlockFriends/{id}")
     public List<Friend> showAllBlockFriends(@PathVariable long id) {
         return friendService.getBlockFriendList(id);
@@ -52,6 +55,7 @@ public class FriendController {
     public void requestCancer(@RequestBody Friend friend) {
         friendService.requestCancer(friend);
     }
+
     //    Block user
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) {

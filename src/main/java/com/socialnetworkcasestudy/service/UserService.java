@@ -4,6 +4,7 @@ import com.socialnetworkcasestudy.dto.CheckUserPass;
 import com.socialnetworkcasestudy.dto.UserSetting;
 import com.socialnetworkcasestudy.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -17,4 +18,7 @@ public interface UserService {
     UserSetting updateUserInformation(UserSetting userSetting);
 
     boolean checkPasswordExisted(CheckUserPass checkUserPass);
+
+
+    List<User> findAll();
 }
