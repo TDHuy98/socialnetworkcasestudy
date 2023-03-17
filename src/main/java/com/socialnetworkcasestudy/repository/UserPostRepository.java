@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserPostRepository extends JpaRepository<Post, Long>, JpaSpecificationExecutor<Post> {
-    @Query("select p from Post p where p.user.id = ?1")
+    @Query( value = "select *  from Post where (post.user_id =?1  and post_status = ('public' || 'friend'))",nativeQuery = true)
     List<Post> findAllByUsers_Id(Long id);
 
-
-
+    @Query(value = "select *  from Post where (post.user_id =?1  and post_status = ('public' || 'friend'))",nativeQuery = true)
+    List<Post> findProfilePost(Long id);
 }

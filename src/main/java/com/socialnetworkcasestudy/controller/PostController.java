@@ -32,15 +32,16 @@ public class PostController {
         return postService.findAllByUser_Id(id);
     }
 
-    @PostMapping
+
+
+    @PostMapping("/create")
     public ResponseEntity<PostCreationDto> postStatus(@RequestBody PostCreationDto post){
-        try {
-            postService.createPost(post);
-            return new ResponseEntity<>(post, HttpStatus.CREATED);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(post,HttpStatus.CONFLICT);
+        return new ResponseEntity<>(postService.createPost(post), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/edit")
+    public ResponseEntity<PostModifierDto> editStatus(@RequestBody PostModifierDto postModifierDto){
+        return new ResponseEntity<>(postService.update(postModifierDto),HttpStatus.CREATED);
     }
 
 

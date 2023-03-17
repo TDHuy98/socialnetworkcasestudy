@@ -11,7 +11,6 @@ import java.util.Collection;
  */
 @Data
 public class PostCreationDto implements Serializable {
-    private Long id;
     private Long userId;
     private String content;
     private String img;
@@ -20,6 +19,7 @@ public class PostCreationDto implements Serializable {
 
     public PostCreationDto() {
     }
+
 
     public PostCreationDto(Long userId, String content, String img, PostStatus postStatus, Collection<Long> postIds) {
         this.userId = userId;
@@ -36,6 +36,7 @@ public class PostCreationDto implements Serializable {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
 
     public String getContent() {
         return content;

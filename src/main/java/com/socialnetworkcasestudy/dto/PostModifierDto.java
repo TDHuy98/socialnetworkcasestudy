@@ -5,25 +5,35 @@ import lombok.Data;
 
 @Data
 public class PostModifierDto {
-    private Long id;
+    private Long PostId;
     private PostStatus postStatus;
     private String content;
+    private String img;
 
     public PostModifierDto() {
     }
 
-    public PostModifierDto(Long id, PostStatus postStatus, String content) {
-        this.id = id;
+    public PostModifierDto(Long postId, PostStatus postStatus, String content, String img) {
+        PostId = postId;
         this.postStatus = postStatus;
         this.content = content;
+        this.img = img;
     }
 
-    public Long getId() {
-        return id;
+    public String getImg() {
+        return img;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Long getPostId() {
+        return PostId;
+    }
+
+    public void setPostId(Long postId) {
+        PostId = postId;
     }
 
     public PostStatus getPostStatus() {

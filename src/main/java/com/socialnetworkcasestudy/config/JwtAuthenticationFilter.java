@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.config;
 
+import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.repository.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -47,6 +48,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
+//        User principal = (User) SecurityContextHolder
+//                .getContext().getAuthentication().getPrincipal();
         filterChain.doFilter(request, response);
     }
 }

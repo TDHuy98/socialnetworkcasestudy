@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -45,12 +46,21 @@ public class PostServiceImpl implements PostService {
         return postOfUser;
     }
 
+
+
     @Override
     public PostCreationDto createPost(PostCreationDto postCreationDto) {
         Post postCreation = postCreationDtoToPost(postCreationDto);
         postCreation.setCreatedAt(Instant.now());
         userPostRepository.save(postCreation);
         return postCreationDto;
+    }
+
+    public PostModifierDto update(PostModifierDto postModifierDto){
+        Post postModifier = postModifierDtoToPost(postModifierDto);
+        postModifier.setUpdateAt(Instant.now());
+        userPostRepository.save(postModifier);
+        return postModifierDto;
     }
 
     @Override
@@ -82,6 +92,7 @@ public class PostServiceImpl implements PostService {
     private PostDto postToPostDto(Post post){
         return modelMapper.map(post, PostDto.class);
     }
+
     private Post PostDtoToPost(PostDto postDto){
         return modelMapper.map(postDto,Post.class);
     }
@@ -95,7 +106,5 @@ public class PostServiceImpl implements PostService {
         post.setPostStatus(postStatus);
         return save(post);
     }
-
-
 
 }
