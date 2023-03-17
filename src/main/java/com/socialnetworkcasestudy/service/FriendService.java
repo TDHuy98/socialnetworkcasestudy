@@ -23,4 +23,6 @@ public interface FriendService {
     List<Friend> getBlockFriendList(long id);
 
     List<Friend> getNewFriendList(long id);
+
+    void requestCancer(Friend friend);
 }

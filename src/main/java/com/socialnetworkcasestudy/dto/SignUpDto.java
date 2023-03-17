@@ -1,5 +1,7 @@
 package com.socialnetworkcasestudy.dto;
 
-public class SignUpDto {
+import java.io.Serializable;
+
+public class SignUpDto implements Serializable {
 
 }

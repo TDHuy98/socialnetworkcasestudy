@@ -1,4 +1,6 @@
 package com.socialnetworkcasestudy.dto;
 
-public class UserDto {
+import java.io.Serializable;
+
+public class UserDto implements Serializable {
 }

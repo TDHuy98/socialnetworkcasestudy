@@ -24,6 +24,7 @@ public class User {
     @Column
     private String lastName;
 
+
     @Column
     private Date dateOfBirth;
 

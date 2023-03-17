@@ -38,6 +38,7 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public void delete(long id) {
+        userFriendRepository.deleteById(id);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public List<Friend> getActiveFriendList(long id, FriendshipStatus friendshipStatus) {
-        return         userFriendRepository.findTargetBySourceIdAndStatus(id, friendshipStatus);
+        return userFriendRepository.findTargetBySourceIdAndStatus(id, friendshipStatus);
 
     }
 
@@ -81,5 +82,15 @@ public class FriendServiceImpl implements FriendService {
             }
         }
         return friendListNew;
+    }
+
+    @Override
+    public void requestCancer(Friend friend) {
+        for (Friend f : userFriendRepository.findAll()) {
+            if (f.getTarget().getId() == friend.getTarget().getId() && f.getSource().getId()==friend.getTarget().getId()){
+            }
+            if (f.getTarget().getId() == friend.getSource().getId() && f.getSource().getId() == friend.getTarget().getId()){
+            }
+        }
     }
 }

@@ -34,12 +34,9 @@ public class UserController {
         return userService.findById(id);
     }
 
-    //    Sửa user
-//    @PutMapping("/{id}")
-//    public void saveEdit(@RequestBody User user) {
-//        userService.save(user);
-//
-//    }
+    //Lấy ra list các id fr của user đang đăng nhập
+
+
 
     //    Block user
     @DeleteMapping("/{id}")

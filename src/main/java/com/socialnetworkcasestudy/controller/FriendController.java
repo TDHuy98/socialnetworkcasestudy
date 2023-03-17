@@ -16,7 +16,7 @@ public class FriendController {
     @Autowired
     FriendService friendService;
 
-    //Hiển thị tất cả user
+
     @GetMapping
     public List<Friend> showAllUser() {
         return friendService.findAll();
@@ -47,12 +47,11 @@ public class FriendController {
         return friendService.getBlockFriendList(id);
     }
     //    Sửa user
-//    @PutMapping("/{id}")
-//    public void saveEdit(@RequestBody User user) {
-//        userService.save(user);
-//
-//    }
 
+    @PutMapping("/cancer")
+    public void requestCancer(@RequestBody Friend friend) {
+        friendService.requestCancer(friend);
+    }
     //    Block user
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable int id) {

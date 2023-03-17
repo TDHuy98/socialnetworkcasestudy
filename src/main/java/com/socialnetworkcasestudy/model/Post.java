@@ -21,6 +21,29 @@ public class Post {
 
     @Enumerated(EnumType.STRING)
     private PostStatus postStatus;
+    @Column
+    private String img;
+    @Column
+    private Long countLike;
+
+    public Post(Long id, User user, String content, PostStatus postStatus, String img, Collection<Post> posts, Instant createdAt, Instant updateAt) {
+        this.id = id;
+        this.user = user;
+        this.content = content;
+        this.postStatus = postStatus;
+        this.img = img;
+        this.posts = posts;
+        this.createdAt = createdAt;
+        this.updateAt = updateAt;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     @OneToMany
     @JoinColumn(name = "posts")
