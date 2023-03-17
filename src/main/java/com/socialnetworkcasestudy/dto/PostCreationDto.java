@@ -11,6 +11,7 @@ import java.util.Collection;
  */
 @Data
 public class PostCreationDto implements Serializable {
+    private Long id;
     private Long userId;
     private String content;
     private String img;

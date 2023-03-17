@@ -19,7 +19,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -41,8 +40,7 @@ public class AuthenticationService implements AuthService {
     @Autowired
     private TokenRepository tokenRepository;
 
-//    @Autowired
-//    private JwtDecoder jwtDecoder;
+
 
 
     @Override
@@ -81,6 +79,15 @@ public class AuthenticationService implements AuthService {
         UserDto userDto = new UserDto(principal.getId(), principal.getFirstName(), principal.getMiddleName(), principal.getLastName(), principal.getUsername()
                 , principal.getEmail(), principal.getMobile(), (Date) principal.getDateOfBirth());
         return Optional.of(userDto);
+    }
+
+    private UserDto userToUserDto(User user){
+        return modelMapper.map(user, UserDto.class);
+    }
+    @Override
+    public UserDto getUserById(Long id) {
+        var userFound = userRepository.findUserById(id);
+        return userToUserDto(userFound);
     }
 
     @Override

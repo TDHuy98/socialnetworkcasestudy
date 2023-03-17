@@ -3,7 +3,7 @@ package com.socialnetworkcasestudy.dto;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class UserDto {
     private Long id;

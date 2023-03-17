@@ -54,6 +54,8 @@ public class User implements UserDetails{
     @Column()
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant createdAt;
+    @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
+    private Instant updatedAt;
 
     @Column
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
@@ -66,7 +68,7 @@ public class User implements UserDetails{
     public User() {
     }
 
-    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile, String email, List<Token> tokens, String password, String username, Role role, Instant createdAt, Instant lastLogin, String intro, String profile) {
+    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile, String email, List<Token> tokens, String password, String username, Role role, Instant createdAt, Instant updatedAt, Instant lastLogin, String intro, String profile) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -79,6 +81,7 @@ public class User implements UserDetails{
         this.username = username;
         this.role = role;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.lastLogin = lastLogin;
         this.intro = intro;
         this.profile = profile;
@@ -224,5 +227,13 @@ public class User implements UserDetails{
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
