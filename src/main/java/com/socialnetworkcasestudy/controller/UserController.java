@@ -21,7 +21,7 @@ public class UserController {
     UserServiceImpl userService;
 
     @GetMapping("/{username}")
-    public ResponseEntity<List<UserDto>> getAllUser(@PathVariable String username){
+    public ResponseEntity<List<UserDto>> getUserByName(@PathVariable String username){
         return ResponseEntity.ok(userService.findUsersBySearchName(username));
     }
 

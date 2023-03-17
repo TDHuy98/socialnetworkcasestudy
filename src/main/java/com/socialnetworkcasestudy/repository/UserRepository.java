@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.repository;
 
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-    @Query(value = "select * from User where User.username like concat('%',\"N\",'%')" , nativeQuery = true)
+    @Query(value = "select * from User where User.username like concat('%',:username,'%')" , nativeQuery = true)
     List<User> findUsersBySearchName(String username);
 
     Optional<User> findUserByUsername(String username);
