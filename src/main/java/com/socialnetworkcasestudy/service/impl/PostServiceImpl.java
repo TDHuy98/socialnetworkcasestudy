@@ -44,8 +44,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostCreationDto createPost(PostCreationDto postCreationDto) {
-//        UserDetails loggedInUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        postCreationDto.setUserId(userService.findUserByUserName(loggedInUser.getUsername()).get().getId());
         Post postCreation = postCreationDtoToPost(postCreationDto);
         postCreation.setCreatedAt(Instant.now());
         userPostRepository.save(postCreation);
