@@ -11,11 +11,12 @@ public class PostDto {
     private String lastname;
     private String content;
     private String postStatus;
+    private Long postId;
 
     public PostDto() {
     }
 
-    public PostDto(Long id, Long userId, String img, String firstname, String lastname, String content, String postStatus) {
+    public PostDto(Long id, Long userId, String img, String firstname, String lastname, String content, String postStatus, Long postId) {
         this.id = id;
         this.userId = userId;
         this.img = img;
@@ -23,6 +24,7 @@ public class PostDto {
         this.lastname = lastname;
         this.content = content;
         this.postStatus = postStatus;
+        this.postId = postId;
     }
 
     public String getImg() {
@@ -79,5 +81,13 @@ public class PostDto {
 
     public void setPostStatus(String postStatus) {
         this.postStatus = postStatus;
+    }
+
+    public Long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 }

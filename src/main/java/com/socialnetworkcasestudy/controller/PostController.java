@@ -23,9 +23,9 @@ import java.util.List;
 @CrossOrigin(allowedHeaders = "*")
 public class PostController {
     @Autowired
-    PostServiceImpl postService;
+    private PostServiceImpl postService;
     @Autowired
-    FriendService friendService;
+    private FriendService friendService;
 
     @GetMapping("/{id}")
     public List<PostDto> feed(@PathVariable Long id) {
