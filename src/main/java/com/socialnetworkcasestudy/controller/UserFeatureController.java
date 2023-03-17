@@ -1,6 +1,6 @@
 package com.socialnetworkcasestudy.controller;
 
-import com.socialnetworkcasestudy.dto.CheckUserPass;
+import com.socialnetworkcasestudy.dto.UserPass;
 import com.socialnetworkcasestudy.dto.UserSetting;
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.service.UserService;
@@ -31,8 +31,13 @@ public class UserFeatureController {
         return userSetting;
     }
 
-    @PostMapping("/changepassword")
-    public boolean checkPassword(@RequestBody CheckUserPass checkUserPass){
-        return userService.checkPasswordExisted(checkUserPass);
+    @PostMapping("/checkpassword")
+    public boolean checkPassword(@RequestBody UserPass userPass){
+        return userService.checkPasswordExisted(userPass);
+    }
+
+    @PutMapping("/changepassword")
+    public void changeUserPassword(@RequestBody UserPass userPass) {
+        userService.changeUserPassword(userPass);
     }
 }

@@ -1,12 +1,14 @@
 package com.socialnetworkcasestudy.service.impl;
 
-import com.socialnetworkcasestudy.dto.CheckUserPass;
+import com.socialnetworkcasestudy.dto.UserPass;
 import com.socialnetworkcasestudy.dto.UserSetting;
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.repository.UserRepository;
 import com.socialnetworkcasestudy.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,9 @@ import java.util.Optional;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
@@ -56,15 +61,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkPasswordExisted(CheckUserPass checkUserPass) {
-        System.out.println(checkUserPass.getPassword());
-        System.out.println(userRepository.findUserById(checkUserPass.getUserId()).getPassword());
-
-        return checkUserPass.getPassword() == userRepository.findUserById(checkUserPass.getUserId()).getPassword();
+    public boolean checkPasswordExisted(UserPass userPass) {
+        return passwordEncoder.matches(userPass.getPassword(), userRepository.findUserById(userPass.getUserId()).getPassword());
 
     }
+
     @Override
-    public List<User> findAll(){
+    public void changeUserPassword(UserPass userPass) {
+        User userChangePassword = userRepository.findUserById(userPass.getUserId());
+        userChangePassword.setPassword(passwordEncoder.encode(userPass.getPassword()));
+        userChangePassword.setUpdatedAt(Instant.now());
+        userRepository.save(userChangePassword);
+    }
+
+    @Override
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
@@ -75,4 +86,5 @@ public class UserServiceImpl implements UserService {
     private UserSetting userToUserSetting(User user) {
         return modelMapper.map(user, UserSetting.class);
     }
+
 }

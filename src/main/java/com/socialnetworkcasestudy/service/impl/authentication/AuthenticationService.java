@@ -54,7 +54,10 @@ public class AuthenticationService implements AuthService {
         } else if (checkUsernameExisted(request)) {
             throw new ResourceAlreadyExistException("This username has already registed");
         }
-        var user = User.builder().firstName(request.getFirstname()).middleName(request.getMiddlename()).lastName(request.getLastname()).username(request.getUsername()).email(request.getEmail()).mobile(request.getMobile()).password(passwordEncoder.encode(request.getPassword())).dateOfBirth(request.getDateOfBirth()).role(Role.USER).build();
+        var user = User.builder().firstName(request.getFirstname()).middleName(request.getMiddlename())
+                .lastName(request.getLastname()).username(request.getUsername())
+                .email(request.getEmail()).mobile(request.getMobile())
+                .password(passwordEncoder.encode(request.getPassword())).dateOfBirth(request.getDateOfBirth()).role(Role.USER).build();
         user.setCreatedAt(Instant.now());
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);

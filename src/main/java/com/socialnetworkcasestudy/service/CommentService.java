@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.service;
 
+import com.socialnetworkcasestudy.dto.CommentDto;
 import com.socialnetworkcasestudy.model.Comment;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public interface CommentService {
 
     void delete(long id);
 
-    List<Comment> findByPostId(int id);
+    List<CommentDto> findByPostId(Long id);
 }

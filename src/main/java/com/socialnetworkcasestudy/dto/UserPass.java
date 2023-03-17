@@ -1,10 +1,10 @@
 package com.socialnetworkcasestudy.dto;
 
-public class CheckUserPass {
+public class UserPass {
     private final Long userId;
     private final String password;
 
-    public CheckUserPass(Long userId, String password) {
+    public UserPass(Long userId, String password) {
         this.userId = userId;
         this.password = password;
     }

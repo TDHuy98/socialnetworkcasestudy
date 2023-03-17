@@ -18,7 +18,7 @@ import java.util.List;
 
 @Builder
 @Entity
-public class User implements UserDetails{
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -60,7 +60,7 @@ public class User implements UserDetails{
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant lastLogin;
     private String intro;
-@Lob
+    @Lob
     private String profile;
 
 

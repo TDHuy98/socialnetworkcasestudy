@@ -43,8 +43,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findByPostId(int id) {
-        return null;
+    public List<CommentDto> findByPostId(Long id) {
+        return userCommentRepository.findAllByPostId(id).stream().map(this::commentToCommentDto).toList();
     }
 
     private CommentDto commentToCommentDto(Comment comment) {

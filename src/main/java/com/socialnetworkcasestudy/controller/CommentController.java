@@ -32,7 +32,7 @@ public class CommentController {
 
     //    Hiển thị
     @GetMapping("/{id}")
-    public List<Comment> showLikeByIdPost(@PathVariable int id) {
+    public List<CommentDto> showLikeByIdPost(@PathVariable Long id) {
         return commentService.findByPostId(id);
     }
 

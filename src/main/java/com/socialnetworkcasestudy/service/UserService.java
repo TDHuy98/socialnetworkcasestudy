@@ -1,6 +1,6 @@
 package com.socialnetworkcasestudy.service;
 
-import com.socialnetworkcasestudy.dto.CheckUserPass;
+import com.socialnetworkcasestudy.dto.UserPass;
 import com.socialnetworkcasestudy.dto.UserSetting;
 import com.socialnetworkcasestudy.model.User;
 
@@ -17,8 +17,10 @@ public interface UserService {
 
     UserSetting updateUserInformation(UserSetting userSetting);
 
-    boolean checkPasswordExisted(CheckUserPass checkUserPass);
+    boolean checkPasswordExisted(UserPass userPass);
 
+
+    void changeUserPassword(UserPass userPass);
 
     List<User> findAll();
 }
