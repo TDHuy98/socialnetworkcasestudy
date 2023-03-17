@@ -1,15 +1,19 @@
 package com.socialnetworkcasestudy.service;
 
+import com.socialnetworkcasestudy.dto.PostCreationDto;
+import com.socialnetworkcasestudy.dto.PostDto;
 import com.socialnetworkcasestudy.model.Post;
 
 import java.util.List;
 
 public interface PostService {
-    List<Post> findAll();
+    List<PostDto> findAllByUser_Id(Long id);
 
-    Post findById(long id);
+    PostCreationDto createPost(PostCreationDto postCreationDto);
 
-    Post save(Post post);
+    void delete(Long id);
 
-    void delete(int id);
+    Post findById(Long id);
+
+    List<PostDto> allPost();
 }

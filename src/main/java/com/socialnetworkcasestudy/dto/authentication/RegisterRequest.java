@@ -1,41 +1,47 @@
-package com.socialnetworkcasestudy.dto;
+package com.socialnetworkcasestudy.dto.authentication;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 
-import java.util.Date;
+import java.sql.Date;
 
-public class UserDto {
-    private Long id;
+public class RegisterRequest {
     private String firstname;
     private String middlename;
+    @NonNull
     private String lastname;
+    @NonNull
     private String username;
+    @NonNull
     private String email;
+    @NonNull
     private String mobile;
+    @NonNull
+    private String password;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"yyyy-MM-dd"})
     private Date dateOfBirth;
 
-    public UserDto() {
+    public RegisterRequest() {
     }
 
-    public UserDto(Long id, String firstname, String middlename, String lastname, String username, String email, String mobile, Date dateOfBirth) {
-        this.id = id;
+    public RegisterRequest(String firstname, String middlename, String lastname,
+                           String username, String email, String mobile, String password, Date dateOfBirth) {
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
         this.username = username;
         this.email = email;
         this.mobile = mobile;
+        this.password = password;
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Long getId() {
-        return id;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getFirstname() {
@@ -62,6 +68,14 @@ public class UserDto {
         this.lastname = lastname;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -78,19 +92,11 @@ public class UserDto {
         this.email = email;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

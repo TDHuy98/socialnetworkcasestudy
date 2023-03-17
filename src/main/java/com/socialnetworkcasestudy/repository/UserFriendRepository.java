@@ -9,8 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserFriendRepository extends JpaRepository<Friend, Long> {
-    @Query("select f from Friend f where f.source.id = ?1 and f.friendshipStatus = ?2")
+
+    @Query(value = "select * from Friend as f  where f.user_id = ?1 and f.friendshipStatus = ?2",nativeQuery = true)
     List<Friend> findTargetBySourceIdAndStatus(Long id, FriendshipStatus friendshipStatus);
-
-
 }

@@ -1,49 +1,73 @@
 package com.socialnetworkcasestudy.service.impl;
 
+import com.socialnetworkcasestudy.dto.CheckUserPass;
+import com.socialnetworkcasestudy.dto.UserSetting;
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.repository.UserRepository;
 import com.socialnetworkcasestudy.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserRepository userRepository;
-    @Override
-    public List<User> findAll() {
-        return (List<User>) userRepository.findAll();
-    }
-
+    private ModelMapper modelMapper;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
-    public User findById(long id) {
-        return  userRepository.findById(id).get();
-    }
-
-
-    @Override
-    public User save(User User) {
-        return userRepository.save(User);
+    public Optional<User> findUserByUserName(String username) {
+        return userRepository.findUserByUsername(username);
     }
 
     @Override
-    public void delete(int id) {
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
+    }
+
+    @Override
+    public UserSetting getUserUpdate(Long id) {
+        return userToUserSetting(userRepository.findUserById(id));
+    }
+
+    @Override
+    public UserSetting updateUserInformation(UserSetting userSetting) {
+        User userFound = userRepository.findUserById(userSetting.getId());
+        userFound.setFirstName(userSetting.getFirstName());
+        userFound.setMiddleName(userSetting.getMiddleName());
+        userFound.setLastName(userSetting.getLastName());
+        userFound.setEmail(userSetting.getEmail());
+        userFound.setIntro(userSetting.getIntro());
+        userFound.setUpdatedAt(Instant.now());
+        userRepository.save(userFound);
+        return userSetting;
+    }
+
+    @Override
+    public boolean checkPasswordExisted(CheckUserPass checkUserPass) {
+        System.out.println(checkUserPass.getPassword());
+        System.out.println(userRepository.findUserById(checkUserPass.getUserId()).getPassword());
+
+        return checkUserPass.getPassword() == userRepository.findUserById(checkUserPass.getUserId()).getPassword();
 
     }
 
+    private User userSettingToUser(UserSetting userSetting) {
+        return modelMapper.map(userSetting, User.class);
+    }
 
-//    public List<User> getAllAccountById(Integer id) {
-//        return accountRepository.findAllById(id);
-//    }
-//
-//    public <Optinal> User getAccountById(Integer id) {
-//        return accountRepository.findById(id).get();
-//    }
-
+    private UserSetting userToUserSetting(User user) {
+        return modelMapper.map(user, UserSetting.class);
+    }
 }

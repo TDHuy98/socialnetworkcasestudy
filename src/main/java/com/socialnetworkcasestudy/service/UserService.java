@@ -1,26 +1,20 @@
 package com.socialnetworkcasestudy.service;
 
+import com.socialnetworkcasestudy.dto.CheckUserPass;
+import com.socialnetworkcasestudy.dto.UserSetting;
 import com.socialnetworkcasestudy.model.User;
-import com.socialnetworkcasestudy.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
-@Service
-public interface UserService   {
+public interface UserService {
+    Optional<User> findUserByUserName(String username);
 
-    List<User> findAll();
+    Optional<User> findById(Long id);
+    User findUserById(Long id);
 
+    UserSetting getUserUpdate(Long id);
 
+    UserSetting updateUserInformation(UserSetting userSetting);
 
-    User findById(long id);
-
-    User save(User User);
-
-
-    void delete(int id);
-
+    boolean checkPasswordExisted(CheckUserPass checkUserPass);
 }
