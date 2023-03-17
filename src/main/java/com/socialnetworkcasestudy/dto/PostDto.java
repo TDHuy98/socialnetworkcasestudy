@@ -5,6 +5,8 @@ public class PostDto {
     private Long id;
     private Long userId;
 
+    private String img;
+
     private String firstname;
     private String lastname;
     private String content;
@@ -13,13 +15,22 @@ public class PostDto {
     public PostDto() {
     }
 
-    public PostDto(Long id, Long userId, String firstname, String lastname, String content, String postStatus) {
+    public PostDto(Long id, Long userId, String img, String firstname, String lastname, String content, String postStatus) {
         this.id = id;
         this.userId = userId;
+        this.img = img;
         this.firstname = firstname;
         this.lastname = lastname;
         this.content = content;
         this.postStatus = postStatus;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public Long getId() {
