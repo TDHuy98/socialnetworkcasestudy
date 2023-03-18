@@ -2,31 +2,16 @@ package com.socialnetworkcasestudy.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 @Entity
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "userId")
     private User user;
     private String content;
-    @ManyToOne
-    @JoinColumn(name = "postId")
-    private Post post;
 
-
-
-    public Comment(Long id, User user, String content, Post post) {
-        this.id = id;
-        this.user = user;
-        this.content = content;
-        this.post = post;
-
-    }
+    private Long postId;
 
     public Comment() {
 
@@ -56,11 +41,18 @@ public class Comment {
         this.content = content;
     }
 
-    public Post getPost() {
-        return post;
+    public Long getPostId() {
+        return postId;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPostId(Long postId) {
+        this.postId = postId;
+    }
+
+    public Comment(Long id, User user, String content, Long postId) {
+        this.id = id;
+        this.user = user;
+        this.content = content;
+        this.postId = postId;
     }
 }

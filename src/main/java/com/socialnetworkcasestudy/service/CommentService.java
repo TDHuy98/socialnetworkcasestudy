@@ -6,7 +6,7 @@ import com.socialnetworkcasestudy.model.Comment;
 import java.util.List;
 
 public interface CommentService {
-    List<Comment> findAll();
+    List<CommentDto> findAll();
 
     Comment findById(long id);
 
@@ -14,5 +14,5 @@ public interface CommentService {
 
     void delete(long id);
 
-    List<CommentDto> findByPostId(Long id);
+
 }

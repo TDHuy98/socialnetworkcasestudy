@@ -1,31 +1,52 @@
 package com.socialnetworkcasestudy.dto;
 
-import com.socialnetworkcasestudy.model.Comment;
-import com.socialnetworkcasestudy.model.Post;
-import com.socialnetworkcasestudy.model.User;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class CommentDto {
     private Long id;
     private Long userId;
     private String content;
     private Long postId;
-    private Long commentId;
+    private String profile;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+
 
     public CommentDto() {
     }
 
-    public CommentDto(Long id, Long userId, String content, Long postId, Long commentId) {
+    public CommentDto(Long id, Long userId, String content, Long postId, String profile, String firstName, String middleName, String lastName) {
         this.id = id;
         this.userId = userId;
         this.content = content;
         this.postId = postId;
-        this.commentId = commentId;
+        this.profile = profile;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public Long getId() {
@@ -60,11 +81,15 @@ public class CommentDto {
         this.postId = postId;
     }
 
-    public Long getCommentId() {
-        return commentId;
+
+
+
+
+    public String getProfile() {
+        return profile;
     }
 
-    public void setCommentId(Long commentId) {
-        this.commentId = commentId;
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 }

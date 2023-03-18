@@ -2,9 +2,7 @@ package com.socialnetworkcasestudy.controller;
 
 import com.socialnetworkcasestudy.dto.CommentDto;
 import com.socialnetworkcasestudy.model.Comment;
-import com.socialnetworkcasestudy.model.Likes;
 import com.socialnetworkcasestudy.service.CommentService;
-import com.socialnetworkcasestudy.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +18,12 @@ public class CommentController {
 
 
     @GetMapping
-    public List<Comment> showAllCmt() {
+    public List<CommentDto> showAllCmt() {
         return commentService.findAll();
+    }
+    @GetMapping("/{id}")
+    public Comment showById(Long id) {
+        return commentService.findById(id);
     }
 
     //    Thêm
@@ -31,10 +33,6 @@ public class CommentController {
     }
 
     //    Hiển thị
-    @GetMapping("/{id}")
-    public List<CommentDto> showLikeByIdPost(@PathVariable Long id) {
-        return commentService.findByPostId(id);
-    }
 
 
 

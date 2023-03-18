@@ -4,24 +4,37 @@ import com.socialnetworkcasestudy.dto.CommentDto;
 import com.socialnetworkcasestudy.model.Comment;
 import com.socialnetworkcasestudy.repository.UserCommentRepository;
 import com.socialnetworkcasestudy.service.CommentService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
 public class CommentServiceImpl implements CommentService {
-    @Autowired
-    private ModelMapper modelMapper;
+
+
     @Autowired
     private UserCommentRepository userCommentRepository;
 
     @Override
-    public List<Comment> findAll() {
-        return userCommentRepository.findAll();
+    public List<CommentDto> findAll() {
+        List<CommentDto> newList = new ArrayList<CommentDto>();
+        for (Comment c : userCommentRepository.findAll()) {
+            CommentDto commentDto = new CommentDto();
+            commentDto.setId(c.getId());
+            commentDto.setContent(c.getContent());
+            commentDto.setUserId(c.getUser().getId());
+            commentDto.setPostId(c.getPostId());
+            commentDto.setProfile(c.getUser().getProfile());
+            commentDto.setFirstName(c.getUser().getFirstName());
+            commentDto.setMiddleName(c.getUser().getMiddleName());
+            commentDto.setLastName(c.getUser().getLastName());
+            newList.add(commentDto);
+        }
+        return newList;
     }
 
 
@@ -42,12 +55,5 @@ public class CommentServiceImpl implements CommentService {
 
     }
 
-    @Override
-    public List<CommentDto> findByPostId(Long id) {
-        return userCommentRepository.findAllByPostId(id).stream().map(this::commentToCommentDto).toList();
-    }
 
-    private CommentDto commentToCommentDto(Comment comment) {
-        return modelMapper.map(comment, CommentDto.class);
-    }
 }
