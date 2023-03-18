@@ -3,6 +3,7 @@ package com.socialnetworkcasestudy.service.impl;
 import com.socialnetworkcasestudy.dto.PostCreationDto;
 import com.socialnetworkcasestudy.dto.PostDto;
 import com.socialnetworkcasestudy.dto.PostModifierDto;
+import com.socialnetworkcasestudy.dto.PostUpdateDto;
 import com.socialnetworkcasestudy.model.Post;
 import com.socialnetworkcasestudy.model.PostStatus;
 import com.socialnetworkcasestudy.model.User;
@@ -56,11 +57,19 @@ public class PostServiceImpl implements PostService {
         return postCreationDto;
     }
 
-    public PostModifierDto update(PostModifierDto postModifierDto){
-        Post postModifier = postModifierDtoToPost(postModifierDto);
-        postModifier.setUpdateAt(Instant.now());
-        userPostRepository.save(postModifier);
-        return postModifierDto;
+    public PostUpdateDto update(PostUpdateDto postUpdateDto){
+        Post post = postUpdateDtoToPost(postUpdateDto);
+        post.setUpdateAt(Instant.now());
+        userPostRepository.save(post);
+        return postUpdateDto;
+    }
+
+    private Post postUpdateDtoToPost(PostUpdateDto postUpdateDto){
+        return modelMapper.map(postUpdateDto, Post.class);
+    }
+
+    private PostUpdateDto postToPostUpdateDto(Post post){
+        return modelMapper.map(post,PostUpdateDto.class);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.socialnetworkcasestudy.controller;
 import com.socialnetworkcasestudy.dto.PostCreationDto;
 import com.socialnetworkcasestudy.dto.PostDto;
 import com.socialnetworkcasestudy.dto.PostModifierDto;
+import com.socialnetworkcasestudy.dto.PostUpdateDto;
 import com.socialnetworkcasestudy.model.Post;
 import com.socialnetworkcasestudy.model.PostStatus;
 import com.socialnetworkcasestudy.service.FriendService;
@@ -23,9 +24,9 @@ import java.util.List;
 @CrossOrigin(allowedHeaders = "*")
 public class PostController {
     @Autowired
-    PostServiceImpl postService;
+    private PostServiceImpl postService;
     @Autowired
-    FriendService friendService;
+    private FriendService friendService;
 
     @GetMapping("/{id}")
     public List<PostDto> feed(@PathVariable Long id) {
@@ -33,26 +34,25 @@ public class PostController {
     }
 
 
-
     @PostMapping("/create")
-    public ResponseEntity<PostCreationDto> postStatus(@RequestBody PostCreationDto post){
+    public ResponseEntity<PostCreationDto> postStatus(@RequestBody PostCreationDto post) {
         return new ResponseEntity<>(postService.createPost(post), HttpStatus.CREATED);
     }
 
-    @PutMapping("/edit")
-    public ResponseEntity<PostModifierDto> editStatus(@RequestBody PostModifierDto postModifierDto){
-        return new ResponseEntity<>(postService.update(postModifierDto),HttpStatus.CREATED);
+    @PostMapping("/edit")
+    public ResponseEntity<PostUpdateDto> editStatus(@RequestBody PostUpdateDto postUpdateDto) {
+        return new ResponseEntity<>(postService.update(postUpdateDto), HttpStatus.CREATED);
     }
 
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         postService.delete(id);
     }
 
 
     @GetMapping("findById/{id}")
-    public PostModifierDto findById(@PathVariable Long id){
+    public PostModifierDto findById(@PathVariable Long id) {
         return postService.findById(id);
     }
 
