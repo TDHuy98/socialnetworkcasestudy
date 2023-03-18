@@ -27,18 +27,25 @@ public class Post {
     @Column
     private Long countLike;
 
-    public Post(Long id, User user, String content, PostStatus postStatus, String img, Collection<Post> posts, Instant createdAt, Instant updateAt) {
+    public Post(Long id, User user, String content, PostStatus postStatus, String img, Long countLike, Collection<Post> posts, Instant createdAt, Instant updateAt) {
         this.id = id;
         this.user = user;
         this.content = content;
         this.postStatus = postStatus;
         this.img = img;
+        this.countLike = countLike;
         this.posts = posts;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
     }
 
+    public Long getCountLike() {
+        return countLike;
+    }
 
+    public void setCountLike(Long countLike) {
+        this.countLike = countLike;
+    }
 
     @OneToMany
     @JoinColumn(name = "posts")
