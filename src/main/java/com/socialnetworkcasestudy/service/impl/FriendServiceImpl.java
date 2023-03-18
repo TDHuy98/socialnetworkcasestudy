@@ -3,6 +3,7 @@ package com.socialnetworkcasestudy.service.impl;
 import com.socialnetworkcasestudy.dto.FriendDto;
 import com.socialnetworkcasestudy.model.Friend;
 import com.socialnetworkcasestudy.model.FriendshipStatus;
+import com.socialnetworkcasestudy.model.RelationshipType;
 import com.socialnetworkcasestudy.repository.UserFriendRepository;
 import com.socialnetworkcasestudy.service.FriendService;
 import org.modelmapper.ModelMapper;
@@ -24,13 +25,30 @@ public class FriendServiceImpl implements FriendService {
 
 
     @Override
-    public List<Friend> findAll() {
-        return userFriendRepository.findAll()
-//                .stream().map(this::friendToFriendDto).toList()
-                ;
+    public List<FriendDto> getFriendListByUserIdStatusType(Long id, FriendshipStatus status, RelationshipType type) {
+        List<FriendDto> friendDtoList = new ArrayList();
+        for (Friend f : userFriendRepository.findBySourceIdAndFriendshipStatusAndRelationshipType(id, status, type)) {
+            FriendDto friendDto = new FriendDto();
+            friendDto.setId(f.getId());
+            friendDto.setRelationshipType(f.getRelationshipType());
+            friendDto.setFriendshipStatus(f.getFriendshipStatus());
+
+            friendDto.getSource().setId(f.getSource().getId());
+            friendDto.getSource().setFirstname(f.getSource().getFirstName());
+            friendDto.getSource().setMiddlename(f.getSource().getMiddleName());
+            friendDto.getSource().setLastname(f.getSource().getLastName());
+            friendDto.getSource().setProfile(f.getSource().getProfile());
+
+            friendDto.getTarget().setId(f.getSource().getId());
+            friendDto.getTarget().setFirstname(f.getSource().getFirstName());
+            friendDto.getTarget().setMiddlename(f.getSource().getMiddleName());
+            friendDto.getTarget().setLastname(f.getSource().getLastName());
+            friendDto.getTarget().setProfile(f.getSource().getProfile());
+            friendDtoList.add(friendDto);
+        }
+        return friendDtoList;
     }
 
-    @Override
     public Optional<Friend> findById(long id) {
         return userFriendRepository.findById(id);
     }
@@ -45,7 +63,6 @@ public class FriendServiceImpl implements FriendService {
         userFriendRepository.deleteById(id);
     }
 
-    @Override
     public List<Friend> listFriendByStatus(String status) {
         List<Friend> friendListNew = new ArrayList<>();
         for (Friend friend : userFriendRepository.findAll()) {
@@ -66,7 +83,6 @@ public class FriendServiceImpl implements FriendService {
 
     }
 
-    @Override
     public List<Friend> getBlockFriendList(long id) {
         List<Friend> friendListNew = listFriendByStatus("Block");
         for (Friend friend : friendListNew) {
@@ -77,7 +93,6 @@ public class FriendServiceImpl implements FriendService {
         return friendListNew;
     }
 
-    @Override
     public List<Friend> getNewFriendList(long id) {
         List<Friend> friendListNew = listFriendByStatus("New");
         for (Friend friend : friendListNew) {
@@ -98,7 +113,7 @@ public class FriendServiceImpl implements FriendService {
         }
     }
 
-    private FriendDto friendToFriendDto(Friend friend){
-        return modelMapper.map(friend,FriendDto.class);
+    private FriendDto friendToFriendDto(Friend friend) {
+        return modelMapper.map(friend, FriendDto.class);
     }
 }
