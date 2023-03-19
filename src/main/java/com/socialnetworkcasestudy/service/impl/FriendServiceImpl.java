@@ -1,6 +1,7 @@
 package com.socialnetworkcasestudy.service.impl;
 
 import com.socialnetworkcasestudy.dto.FriendDto;
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.model.Friend;
 import com.socialnetworkcasestudy.model.FriendshipStatus;
 import com.socialnetworkcasestudy.model.RelationshipType;
@@ -29,21 +30,28 @@ public class FriendServiceImpl implements FriendService {
         List<FriendDto> friendDtoList = new ArrayList();
         for (Friend f : userFriendRepository.findBySourceIdAndFriendshipStatusAndRelationshipType(id, status, type)) {
             FriendDto friendDto = new FriendDto();
+            UserDto souceDto = new UserDto();
+            UserDto targetDto = new UserDto();
+
             friendDto.setId(f.getId());
+
+            souceDto.setId(f.getSource().getId());
+            souceDto.setFirstname(f.getSource().getFirstName());
+            souceDto.setMiddlename(f.getSource().getMiddleName());
+            souceDto.setLastname(f.getSource().getLastName());
+            souceDto.setProfile(f.getSource().getProfile());
+
+            targetDto.setId(f.getTarget().getId());
+            targetDto.setFirstname(f.getTarget().getFirstName());
+            targetDto.setMiddlename(f.getTarget().getMiddleName());
+            targetDto.setLastname(f.getTarget().getLastName());
+            targetDto.setProfile(f.getTarget().getProfile());
+
             friendDto.setRelationshipType(f.getRelationshipType());
             friendDto.setFriendshipStatus(f.getFriendshipStatus());
 
-            friendDto.getSource().setId(f.getSource().getId());
-            friendDto.getSource().setFirstname(f.getSource().getFirstName());
-            friendDto.getSource().setMiddlename(f.getSource().getMiddleName());
-            friendDto.getSource().setLastname(f.getSource().getLastName());
-            friendDto.getSource().setProfile(f.getSource().getProfile());
-
-            friendDto.getTarget().setId(f.getSource().getId());
-            friendDto.getTarget().setFirstname(f.getSource().getFirstName());
-            friendDto.getTarget().setMiddlename(f.getSource().getMiddleName());
-            friendDto.getTarget().setLastname(f.getSource().getLastName());
-            friendDto.getTarget().setProfile(f.getSource().getProfile());
+            friendDto.setSource(souceDto);
+            friendDto.setTarget(targetDto);
             friendDtoList.add(friendDto);
         }
         return friendDtoList;
