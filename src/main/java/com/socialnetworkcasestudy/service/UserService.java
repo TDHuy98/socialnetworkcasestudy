@@ -17,10 +17,8 @@ public interface UserService {
 
     UserSetting updateUserInformation(UserSetting userSetting);
 
-    boolean checkPasswordExisted(UserPass userPass);
 
-
-    void changeUserPassword(UserPass userPass);
+    UserPass changeUserPassword(UserPass userPass);
 
     List<User> findAll();
 }

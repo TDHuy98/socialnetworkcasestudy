@@ -4,9 +4,11 @@ import com.socialnetworkcasestudy.model.token.Token;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,6 +38,8 @@ public class User implements UserDetails {
     private Date dateOfBirth;
 
     @Length(min = 10, max = 10)
+    @Pattern(regexp="(^$|[0-9]{10})")
+
     private String mobile;
 
     @Column(unique = true, nullable = false)

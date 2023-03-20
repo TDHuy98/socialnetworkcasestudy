@@ -29,5 +29,8 @@ public interface AuthService {
     boolean checkUsernameExisted(RegisterRequest request);
 
     UserDto getUserById(Long id);
+
+
+    boolean isLoginInformationMathched(AuthenticationRequest authenticationRequest);
 }
 

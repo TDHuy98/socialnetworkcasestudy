@@ -2,12 +2,13 @@ package com.socialnetworkcasestudy.service.impl;
 
 import com.socialnetworkcasestudy.dto.UserPass;
 import com.socialnetworkcasestudy.dto.UserSetting;
+import com.socialnetworkcasestudy.exception.ResourceAlreadyExistException;
+import com.socialnetworkcasestudy.exception.ResourceNotFoundException;
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.repository.UserRepository;
 import com.socialnetworkcasestudy.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,39 +40,58 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Long id) {
-        return userRepository.findUserById(id);
+        return userRepository.findUserById(id).get();
     }
 
     @Override
     public UserSetting getUserUpdate(Long id) {
-        return userToUserSetting(userRepository.findUserById(id));
+        return userToUserSetting(userRepository.findUserById(id).get());
     }
 
     @Override
     public UserSetting updateUserInformation(UserSetting userSetting) {
-        User userFound = userRepository.findUserById(userSetting.getId());
+        User userFound = userRepository.findUserById(userSetting.getId()).get();
+        if (userRepository.findUserByEmail(userSetting.getEmail()).isPresent()
+                &&
+            !userRepository.findUserByEmail(userSetting.getEmail())
+                    .equals(userRepository.findUserById(userSetting.getId()))
+        ) {
+            throw new ResourceAlreadyExistException("This email has already exist, please use another");
+        } else {
+            userFound.setEmail(userSetting.getEmail());
+        }
+        if (userRepository.findUserByMobile(userSetting.getMobile()).isPresent()
+        &&
+        !userRepository.findUserByMobile(userSetting.getMobile())
+                .equals(userRepository.findUserById(userSetting.getId()))) {
+            throw new ResourceAlreadyExistException("This mobile has already exist, please use another");
+        } else {
+            userFound.setMobile(userSetting.getMobile());
+
+        }
         userFound.setFirstName(userSetting.getFirstName());
         userFound.setMiddleName(userSetting.getMiddleName());
         userFound.setLastName(userSetting.getLastName());
-        userFound.setEmail(userSetting.getEmail());
         userFound.setIntro(userSetting.getIntro());
         userFound.setUpdatedAt(Instant.now());
         userRepository.save(userFound);
         return userSetting;
     }
 
-    @Override
-    public boolean checkPasswordExisted(UserPass userPass) {
-        return passwordEncoder.matches(userPass.getPassword(), userRepository.findUserById(userPass.getUserId()).getPassword());
-
-    }
 
     @Override
-    public void changeUserPassword(UserPass userPass) {
-        User userChangePassword = userRepository.findUserById(userPass.getUserId());
-        userChangePassword.setPassword(passwordEncoder.encode(userPass.getPassword()));
-        userChangePassword.setUpdatedAt(Instant.now());
-        userRepository.save(userChangePassword);
+    public UserPass changeUserPassword(UserPass userPass) {
+        if (passwordEncoder
+                .matches(userPass.getOldPassword(),
+                        userRepository.findUserById(userPass.getUserId()).get().getPassword())) {
+            User userChangePassword = userRepository.findUserById(userPass.getUserId()).get();
+            userChangePassword.setPassword(passwordEncoder.encode(userPass.getNewPassword()));
+            userChangePassword.setUpdatedAt(Instant.now());
+            userRepository.save(userChangePassword);
+        } else {
+            throw new ResourceNotFoundException("Wrong old password, please try again");
+        }
+        return userPass;
     }
 
     @Override

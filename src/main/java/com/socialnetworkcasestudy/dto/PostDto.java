@@ -14,11 +14,20 @@ public class PostDto {
     private Long postId;
     private Long countLike;
 
+    private Long likeId;
+    private Long userLikedId;
+    private String userLikedLastName;
+
+    private Long commentId;
+    private Long userCommentedId;
+    private String commentContent;
+    private Long commentParentId;
+
     public PostDto() {
     }
 
     public PostDto(Long id, Long userId, String profile, String img, String firstname, String middlename, String lastname,
-                   String content, String postStatus, Long postId, Long countLike) {
+                   String content, String postStatus, Long postId, Long countLike, Long likeId, Long userLikedId, String userLikedLastName, Long commentId, Long userCommentedId, String commentContent, Long commentParentId) {
         this.id = id;
         this.userId = userId;
         this.profile = profile;
@@ -30,6 +39,13 @@ public class PostDto {
         this.postStatus = postStatus;
         this.postId = postId;
         this.countLike = countLike;
+        this.likeId = likeId;
+        this.userLikedId = userLikedId;
+        this.userLikedLastName = userLikedLastName;
+        this.commentId = commentId;
+        this.userCommentedId = userCommentedId;
+        this.commentContent = commentContent;
+        this.commentParentId = commentParentId;
     }
 
     public Long getId() {

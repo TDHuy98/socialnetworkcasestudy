@@ -33,6 +33,7 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private FriendServiceImpl friendService;
 
+    @Override
     public List<PostDto> findAllByUser_Id(Long id) {
         User userFound = userService.findUserById(id);
         List<PostDto> postOfUser = new java.util.ArrayList<>(userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto)
@@ -58,6 +59,7 @@ public class PostServiceImpl implements PostService {
         userPostRepository.deleteById(id);
     }
 
+    @Override
     public PostModifierDto findById(Long id) {
         return postToPostModifierDto(userPostRepository.findById(id).get());
     }
@@ -84,7 +86,7 @@ public class PostServiceImpl implements PostService {
         return modelMapper.map(post, PostDto.class);
     }
 
-    private Post PostDtoToPost(PostDto postDto) {
+    private Post postDtoToPost(PostDto postDto) {
         return modelMapper.map(postDto, Post.class);
     }
 
@@ -97,6 +99,7 @@ public class PostServiceImpl implements PostService {
         return userPostRepository.save(post);
     }
 
+    @Override
     public Post changeStatus(long id, PostStatus postStatus) {
         Post post = postModifierDtoToPost(findById(id));
         post.setPostStatus(postStatus);

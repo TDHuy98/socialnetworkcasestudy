@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/like")
 public class LikeController {
     @Autowired
-    LikeService likeService;
+    private LikeService likeService;
 
 
     @GetMapping

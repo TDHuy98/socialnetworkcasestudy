@@ -25,19 +25,15 @@ public class UserFeatureController {
         return ResponseEntity.ok(userService.getUserUpdate(id));
     }
 
-    @PostMapping("/setting")
-    public UserSetting setting(@RequestBody UserSetting userSetting) {
+    @PutMapping("/setting")
+    public ResponseEntity<UserSetting> setting(@RequestBody UserSetting userSetting) {
         userService.updateUserInformation(userSetting);
-        return userSetting;
+        return ResponseEntity.ok(userSetting);
     }
 
-    @PostMapping("/checkpassword")
-    public boolean checkPassword(@RequestBody UserPass userPass){
-        return userService.checkPasswordExisted(userPass);
-    }
 
     @PutMapping("/changepassword")
-    public void changeUserPassword(@RequestBody UserPass userPass) {
-        userService.changeUserPassword(userPass);
+    public ResponseEntity<UserPass> changeUserPassword(@RequestBody UserPass userPass) {
+        return ResponseEntity.ok(userService.changeUserPassword(userPass));
     }
 }

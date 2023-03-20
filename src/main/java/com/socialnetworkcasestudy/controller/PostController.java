@@ -6,6 +6,7 @@ import com.socialnetworkcasestudy.dto.PostModifierDto;
 import com.socialnetworkcasestudy.model.Post;
 import com.socialnetworkcasestudy.model.PostStatus;
 import com.socialnetworkcasestudy.service.FriendService;
+import com.socialnetworkcasestudy.service.PostService;
 import com.socialnetworkcasestudy.service.impl.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ import java.util.List;
 @CrossOrigin(allowedHeaders = "*")
 public class PostController {
     @Autowired
-    private PostServiceImpl postService;
+    private PostService postService;
     @Autowired
     private FriendService friendService;
 

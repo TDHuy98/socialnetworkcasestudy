@@ -24,7 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     Optional<User> findByUsername(String username);
 
     @Query("select u from User u where u.id = ?1")
-    User findUserById(Long id);
+    Optional<User> findUserById(Long id);
 
 
 }
