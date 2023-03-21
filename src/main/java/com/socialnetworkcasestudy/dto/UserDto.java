@@ -1,16 +1,15 @@
 package com.socialnetworkcasestudy.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.NonNull;
 
 import java.util.Date;
 
 public class UserDto {
     private Long id;
     private String firstname;
-    private String middlename;
-    private String lastname;
-    private String username;
+    private String middleName;
+    private String lastName;
+    private String userName;
     private String email;
     private String mobile;
     private String profile;
@@ -20,12 +19,12 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long id, String firstname, String middlename, String lastname, String username, String email, String mobile, String profile, Date dateOfBirth) {
+    public UserDto(Long id, String firstname, String middleName, String lastName, String userName, String email, String mobile, String profile, Date dateOfBirth) {
         this.id = id;
         this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.username = username;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.userName = userName;
         this.email = email;
         this.mobile = mobile;
         this.profile = profile;
@@ -48,28 +47,28 @@ public class UserDto {
         this.firstname = firstname;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
