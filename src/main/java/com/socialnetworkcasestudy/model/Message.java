@@ -1,6 +1,7 @@
 package com.socialnetworkcasestudy.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.Instant;
 
@@ -23,7 +24,6 @@ public class Message {
     private Instant createdAt;
 
     private Instant updatedAt;
-
 
     public Message() {
     }
@@ -84,5 +84,4 @@ public class Message {
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 }
