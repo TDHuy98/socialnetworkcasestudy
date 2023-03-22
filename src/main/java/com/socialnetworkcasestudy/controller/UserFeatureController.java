@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/v1/user-setting")
 @CrossOrigin("*")
 public class UserFeatureController {
     @Autowired
     private UserService userService;
-    @GetMapping
-    public List<User> showAllUser() {
-        return userService.findAll();
-    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UserSetting> getUserInformation(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserUpdate(id));
@@ -36,4 +33,6 @@ public class UserFeatureController {
     public ResponseEntity<UserPass> changeUserPassword(@RequestBody UserPass userPass) {
         return ResponseEntity.ok(userService.changeUserPassword(userPass));
     }
+
+
 }

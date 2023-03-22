@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Builder
 @Entity
 public class User implements UserDetails {
     @Id
@@ -54,11 +53,14 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @Column()
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant createdAt;
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant updatedAt;
+    @Column(name = "searchable", nullable = false)
+    private boolean searchable;
 
     @Column
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
@@ -71,7 +73,11 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile, String email, List<Token> tokens, String password, String username, Role role, Instant createdAt, Instant updatedAt, Instant lastLogin, String intro, String profile) {
+    public User(Long id, String firstName, String middleName, String lastName,
+                Date dateOfBirth, String mobile, String email, List<Token> tokens,
+                String password, String username, Role role,
+                Instant createdAt, Instant updatedAt, Instant lastLogin,
+                String intro, String profile, boolean searchable) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -88,6 +94,15 @@ public class User implements UserDetails {
         this.lastLogin = lastLogin;
         this.intro = intro;
         this.profile = profile;
+        this.searchable=searchable;
+    }
+
+    public boolean isSearchable() {
+        return searchable;
+    }
+
+    public void setSearchable(boolean searchable) {
+        this.searchable = searchable;
     }
 
     public List<Token> getTokens() {

@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.service;
 
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.dto.UserPass;
 import com.socialnetworkcasestudy.dto.UserSetting;
 import com.socialnetworkcasestudy.model.User;
@@ -21,4 +22,12 @@ public interface UserService {
     UserPass changeUserPassword(UserPass userPass);
 
     List<User> findAll();
+
+    List<UserDto> searchUser(String searchValue);
+
+
+
+    String enableSearch(Long id);
+
+    String disableSearch(Long id);
 }

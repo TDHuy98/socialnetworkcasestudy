@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class CommentServiceImpl implements CommentService {
             commentDto.setFirstName(c.getUser().getFirstName());
             commentDto.setMiddleName(c.getUser().getMiddleName());
             commentDto.setLastName(c.getUser().getLastName());
+            commentDto.setCreatedAt(c.getCreatedAt());
             newList.add(commentDto);
         }
         return newList;
@@ -46,6 +48,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment save(Comment comment) {
+        comment.setCreatedAt(Instant.now());
         return userCommentRepository.save(comment);
     }
 

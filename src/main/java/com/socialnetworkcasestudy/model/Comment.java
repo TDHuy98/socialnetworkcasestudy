@@ -1,6 +1,9 @@
 package com.socialnetworkcasestudy.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.Instant;
 
 @Entity
 public class Comment {
@@ -12,7 +15,8 @@ public class Comment {
     private String content;
 
     private Long postId;
-
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"M/d/yy", "dd.MM.yyyy"})
+    private Instant createdAt;
     public Comment() {
 
     }
@@ -49,10 +53,19 @@ public class Comment {
         this.postId = postId;
     }
 
-    public Comment(Long id, User user, String content, Long postId) {
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Comment(Long id, User user, String content, Long postId, Instant createdAt) {
         this.id = id;
         this.user = user;
         this.content = content;
         this.postId = postId;
+        this.createdAt = createdAt;
     }
 }

@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.repository;
 
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -25,6 +26,13 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     @Query("select u from User u where u.id = ?1")
     Optional<User> findUserById(Long id);
+
+    @Query("""
+            select u from User u
+            where upper(u.firstName) like upper(concat('%', ?1, '%')) or upper(u.lastName) like upper(concat('%', ?2, '%')) and u.searchable = true""")
+    List<User> findUser(String firstName, String lastName);
+
+
 
 
 }

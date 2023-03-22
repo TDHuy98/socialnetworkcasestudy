@@ -1,5 +1,9 @@
 package com.socialnetworkcasestudy.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.Instant;
+
 public class CommentDto {
     private Long id;
     private Long userId;
@@ -9,12 +13,14 @@ public class CommentDto {
     private String firstName;
     private String middleName;
     private String lastName;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"M/d/yy", "dd.MM.yyyy"})
+    private Instant createdAt;
 
 
     public CommentDto() {
     }
 
-    public CommentDto(Long id, Long userId, String content, Long postId, String profile, String firstName, String middleName, String lastName) {
+    public CommentDto(Long id, Long userId, String content, Long postId, String profile, String firstName, String middleName, String lastName, Instant createdAt) {
         this.id = id;
         this.userId = userId;
         this.content = content;
@@ -23,6 +29,7 @@ public class CommentDto {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.createdAt = createdAt;
     }
 
     public String getFirstName() {
@@ -81,9 +88,13 @@ public class CommentDto {
         this.postId = postId;
     }
 
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
 
-
-
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public String getProfile() {
         return profile;

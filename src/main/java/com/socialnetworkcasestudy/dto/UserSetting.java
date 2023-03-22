@@ -1,6 +1,5 @@
 package com.socialnetworkcasestudy.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -14,13 +13,14 @@ public class UserSetting {
     private String mobile;
     private String intro;
     private String profile;
+    private boolean searchable;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"yyyy-MM-dd"})
     private Date dob;
 
     public UserSetting() {
     }
 
-    public UserSetting(Long id, String firstName, String middleName, String lastName, String email, String mobile, String intro, String profile, Date dob) {
+    public UserSetting(Long id, String firstName, String middleName, String lastName, String email, String mobile, String intro, String profile, boolean searchable, Date dob) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -29,6 +29,7 @@ public class UserSetting {
         this.mobile = mobile;
         this.intro = intro;
         this.profile = profile;
+        this.searchable = searchable;
         this.dob = dob;
     }
 
@@ -102,5 +103,13 @@ public class UserSetting {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public boolean isSearchable() {
+        return searchable;
+    }
+
+    public void setSearchable(boolean searchable) {
+        this.searchable = searchable;
     }
 }

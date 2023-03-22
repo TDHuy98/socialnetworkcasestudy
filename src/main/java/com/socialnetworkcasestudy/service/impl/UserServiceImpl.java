@@ -1,5 +1,6 @@
 package com.socialnetworkcasestudy.service.impl;
 
+import com.socialnetworkcasestudy.dto.UserDto;
 import com.socialnetworkcasestudy.dto.UserPass;
 import com.socialnetworkcasestudy.dto.UserSetting;
 import com.socialnetworkcasestudy.exception.ResourceAlreadyExistException;
@@ -97,6 +98,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<UserDto> searchUser(String searchValue) {
+        return userRepository.findUser(searchValue, searchValue).stream().map(this::userToUserDto).toList();
+    }
+
+
+    @Override
+    public String enableSearch(Long id) {
+        userRepository.findById(id).get().setSearchable(true);
+        return "Enable Search";
+
+    }
+
+    @Override
+    public String disableSearch(Long id) {
+        userRepository.findById(id).get().setSearchable(false);
+        return "Disable Search";
+
+    }
+
+    private UserDto userToUserDto(User user) {
+        return modelMapper.map(user, UserDto.class);
     }
 
     private User userSettingToUser(UserSetting userSetting) {
