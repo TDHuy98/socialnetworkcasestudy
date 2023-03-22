@@ -6,9 +6,9 @@ public class PostDto {
     private Long userId;
     private String profile;
     private String img;
-    private String firstname;
-    private String middlename;
-    private String lastname;
+    private String firstName;
+    private String middleName;
+    private String lastName;
     private String content;
     private String postStatus;
     private Long postId;
@@ -26,15 +26,15 @@ public class PostDto {
     public PostDto() {
     }
 
-    public PostDto(Long id, Long userId, String profile, String img, String firstname, String middlename, String lastname,
+    public PostDto(Long id, Long userId, String profile, String img, String firstName, String middleName, String lastName,
                    String content, String postStatus, Long postId, Long countLike, Long likeId, Long userLikedId, String userLikedLastName, Long commentId, Long userCommentedId, String commentContent, Long commentParentId) {
         this.id = id;
         this.userId = userId;
         this.profile = profile;
         this.img = img;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
         this.content = content;
         this.postStatus = postStatus;
         this.postId = postId;
@@ -80,28 +80,28 @@ public class PostDto {
         this.img = img;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getContent() {

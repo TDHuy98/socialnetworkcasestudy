@@ -70,9 +70,9 @@ public class UserServiceImpl implements UserService {
             userFound.setMobile(userSetting.getMobile());
 
         }
-        userFound.setFirstname(userSetting.getFirstname());
-        userFound.setMiddlename(userSetting.getMiddlename());
-        userFound.setLastname(userSetting.getLastname());
+        userFound.setFirstName(userSetting.getFirstName());
+        userFound.setMiddleName(userSetting.getMiddleName());
+        userFound.setLastName(userSetting.getLastName());
         userFound.setIntro(userSetting.getIntro());
         userFound.setUpdatedAt(Instant.now());
         userRepository.save(userFound);

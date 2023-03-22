@@ -39,9 +39,9 @@ public class PostServiceImpl implements PostService {
         List<PostDto> postOfUser = new java.util.ArrayList<>(userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto)
                 .toList());
         postOfUser.forEach(u -> u.setProfile(userFound.getProfile()));
-        postOfUser.forEach(u -> u.setFirstname(userFound.getFirstname()));
-        postOfUser.forEach(u -> u.setMiddlename(userFound.getMiddlename()));
-        postOfUser.forEach(u -> u.setLastname(userFound.getLastname()));
+        postOfUser.forEach(u -> u.setFirstName(userFound.getFirstName()));
+        postOfUser.forEach(u -> u.setMiddleName(userFound.getMiddleName()));
+        postOfUser.forEach(u -> u.setLastName(userFound.getLastName()));
         Collections.reverse(postOfUser);
         return postOfUser;
     }

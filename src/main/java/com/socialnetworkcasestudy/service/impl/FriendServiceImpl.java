@@ -36,15 +36,15 @@ public class FriendServiceImpl implements FriendService {
             friendDto.setId(f.getId());
 
             souceDto.setId(f.getSource().getId());
-            souceDto.setFirstname(f.getSource().getFirstname());
-            souceDto.setMiddlename(f.getSource().getMiddlename());
-            souceDto.setLastname(f.getSource().getLastname());
+            souceDto.setFirstName(f.getSource().getFirstName());
+            souceDto.setMiddleName(f.getSource().getMiddleName());
+            souceDto.setLastName(f.getSource().getLastName());
             souceDto.setProfile(f.getSource().getProfile());
 
             targetDto.setId(f.getTarget().getId());
-            targetDto.setFirstname(f.getTarget().getFirstname());
-            targetDto.setMiddlename(f.getTarget().getMiddlename());
-            targetDto.setLastname(f.getTarget().getLastname());
+            targetDto.setFirstName(f.getTarget().getFirstName());
+            targetDto.setMiddleName(f.getTarget().getMiddleName());
+            targetDto.setLastName(f.getTarget().getLastName());
             targetDto.setProfile(f.getTarget().getProfile());
 
             friendDto.setRelationshipType(f.getRelationshipType());

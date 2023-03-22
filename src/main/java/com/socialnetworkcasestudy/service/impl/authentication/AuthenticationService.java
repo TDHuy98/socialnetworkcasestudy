@@ -58,18 +58,11 @@ public class AuthenticationService implements AuthService {
         if (checkUsernameExisted(request)) {
             throw new ResourceAlreadyExistException("This username has already registed");
         }
-//        var user = User.builder().firstName(request.getFirstname()).middleName(request.getMiddlename())
-//                .lastName(request.getLastname()).username(request.getUsername())
-//                .email(request.getEmail()).mobile(request.getMobile())
-//                .password(passwordEncoder.encode(request.getPassword()))
-//                .dateOfBirth(request.getDateOfBirth())
-//                .role(Role.USER)
-//                .searchable(true)
-//                .build();
+
         User user = new User();
-        user.setFirstName(request.getFirstname());
-        user.setMiddleName(request.getMiddlename());
-        user.setLastName(request.getLastname());
+        user.setFirstName(request.getFirstName());
+        user.setMiddleName(request.getMiddleName());
+        user.setLastName(request.getLastName());
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setMobile(request.getMobile());

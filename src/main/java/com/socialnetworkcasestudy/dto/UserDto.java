@@ -6,9 +6,9 @@ import java.util.Date;
 
 public class UserDto {
     private Long id;
-    private String firstname;
-    private String middlename;
-    private String lastname;
+    private String firstName;
+    private String middleName;
+    private String lastName;
     private String username;
     private String email;
     private String mobile;
@@ -19,11 +19,11 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long id, String firstname, String middlename, String lastname, String username, String email, String mobile, String profile, Date dateOfBirth) {
+    public UserDto(Long id, String firstName, String middleName, String lastName, String username, String email, String mobile, String profile, Date dateOfBirth) {
         this.id = id;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
         this.username = username;
         this.email = email;
         this.mobile = mobile;
@@ -39,28 +39,28 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {
