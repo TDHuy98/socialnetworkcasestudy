@@ -12,6 +12,6 @@ public class WebController {
 
     @MessageMapping("/hello")
     public void greeting(User user) throws Exception {
-        simpMessagingTemplate.convertAndSend("/topic/public", new Hello(user.getName() +" : " + user.getMessage()));
+        simpMessagingTemplate.convertAndSend("/topic/public" , new Hello(user.getName() +" : " + user.getMessage()));
     }
 }
