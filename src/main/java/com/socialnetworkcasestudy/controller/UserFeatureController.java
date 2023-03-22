@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/user-setting")
+@RequestMapping("/user")
 @CrossOrigin("*")
 public class UserFeatureController {
     @Autowired
     private UserService userService;
-
+    @GetMapping
+    public List<User> showAllUser() {
+        return userService.findAll();
+    }
     @GetMapping("/{id}")
     public ResponseEntity<UserSetting> getUserInformation(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserUpdate(id));

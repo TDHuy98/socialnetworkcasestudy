@@ -14,13 +14,14 @@ import java.util.List;
 public class CommonController {
     @Autowired
     private UserService userService;
-    @PostMapping ("/{searchValue}")
-    public ResponseEntity<List<UserDto>> searchUser(@PathVariable String searchValue){
+
+    @PostMapping("/{searchValue}")
+    public ResponseEntity<List<UserDto>> searchUser(@PathVariable String searchValue) {
         return ResponseEntity.ok(userService.searchUser(searchValue));
     }
 
     @PostMapping("/enable-search/{userId}")
-    public ResponseEntity<String> enableSearchable(@PathVariable Long userId){
+    public ResponseEntity<String> enableSearchable(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.enableSearch(userId));
     }
 
