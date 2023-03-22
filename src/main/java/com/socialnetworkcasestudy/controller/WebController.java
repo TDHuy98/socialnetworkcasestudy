@@ -39,9 +39,9 @@ public class WebController {
         );
         message1.setCreatedAt(Instant.from(LocalDate.now()));
         messageService.save(message1);
-        simpMessagingTemplate.convertAndSend("/topic/public/", message1
+        simpMessagingTemplate.convertAndSend("/topic/public/" + message1.getSource().getId(), message1
         );
     }
 
-    
+
 }
