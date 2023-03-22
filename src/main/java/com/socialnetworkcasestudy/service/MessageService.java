@@ -5,7 +5,7 @@ import com.socialnetworkcasestudy.model.Message;
 import java.util.List;
 
 public interface MessageService {
-    List<Message> showAllMessageById(Long user_id);
+    List<Message> showAllMessageBySourceId(Long user_id);
 
     Message findById(Long id);
 

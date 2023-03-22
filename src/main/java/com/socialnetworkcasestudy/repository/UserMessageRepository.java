@@ -16,4 +16,5 @@ public interface UserMessageRepository extends JpaRepository<Message, Long>, Jpa
 
     @Query(value = "select * from Message where Message .source.id=?1",nativeQuery = true)
     List<Message> findAllBySource_Id(Long id);
+
 }
