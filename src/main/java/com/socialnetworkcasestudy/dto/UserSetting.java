@@ -4,31 +4,33 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class UserDto {
+public class UserSetting {
     private Long id;
     private String firstName;
     private String middleName;
     private String lastName;
-    private String username;
     private String email;
     private String mobile;
+    private String intro;
     private String profile;
+    private boolean searchable;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"yyyy-MM-dd"})
-    private Date dateOfBirth;
+    private Date dob;
 
-    public UserDto() {
+    public UserSetting() {
     }
 
-    public UserDto(Long id, String firstName, String middleName, String lastName, String username, String email, String mobile, String profile, Date dateOfBirth) {
+    public UserSetting(Long id, String firstName, String middleName, String lastName, String email, String mobile, String intro, String profile, boolean searchable, Date dob) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
-        this.username = username;
         this.email = email;
         this.mobile = mobile;
+        this.intro = intro;
         this.profile = profile;
-        this.dateOfBirth = dateOfBirth;
+        this.searchable = searchable;
+        this.dob = dob;
     }
 
     public Long getId() {
@@ -63,14 +65,6 @@ public class UserDto {
         this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -87,12 +81,12 @@ public class UserDto {
         this.mobile = mobile;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public String getIntro() {
+        return intro;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 
     public String getProfile() {
@@ -101,5 +95,21 @@ public class UserDto {
 
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public boolean isSearchable() {
+        return searchable;
+    }
+
+    public void setSearchable(boolean searchable) {
+        this.searchable = searchable;
     }
 }

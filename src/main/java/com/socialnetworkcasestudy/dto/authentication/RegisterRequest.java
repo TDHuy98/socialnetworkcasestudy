@@ -6,10 +6,10 @@ import org.springframework.lang.NonNull;
 import java.sql.Date;
 
 public class RegisterRequest {
-    private String firstname;
-    private String middlename;
+    private String firstName;
+    private String middleName;
     @NonNull
-    private String lastname;
+    private String lastName;
     @NonNull
     private String username;
     @NonNull
@@ -24,11 +24,11 @@ public class RegisterRequest {
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String firstname, String middlename, String lastname,
+    public RegisterRequest(String firstName, String middleName, String lastName,
                            String username, String email, String mobile, String password, Date dateOfBirth) {
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
         this.username = username;
         this.email = email;
         this.mobile = mobile;
@@ -44,28 +44,28 @@ public class RegisterRequest {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getMobile() {

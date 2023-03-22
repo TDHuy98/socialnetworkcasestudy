@@ -6,6 +6,7 @@ import com.socialnetworkcasestudy.dto.authentication.AuthenticationRequest;
 import com.socialnetworkcasestudy.dto.authentication.AuthenticationResponse;
 import com.socialnetworkcasestudy.dto.authentication.RegisterRequest;
 import com.socialnetworkcasestudy.exception.ResourceAlreadyExistException;
+import com.socialnetworkcasestudy.exception.WrongLogginInformationException;
 import com.socialnetworkcasestudy.model.Role;
 import com.socialnetworkcasestudy.model.User;
 import com.socialnetworkcasestudy.model.token.Token;
@@ -19,7 +20,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -41,22 +41,35 @@ public class AuthenticationService implements AuthService {
     @Autowired
     private TokenRepository tokenRepository;
 
-//    @Autowired
-//    private JwtDecoder jwtDecoder;
+
 
 
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
         if (checkUsernameExisted(request) && checkEmailExisted(request) && checkMobileExisted(request)) {
             throw new ResourceAlreadyExistException("These mobile, email and username have already registed");
-        } else if (checkEmailExisted(request)) {
+        }
+        if (checkEmailExisted(request)) {
             throw new ResourceAlreadyExistException("This email has already registed");
-        } else if (checkMobileExisted(request)) {
+        }
+        if (checkMobileExisted(request)) {
             throw new ResourceAlreadyExistException("This mobile has already registed");
-        } else if (checkUsernameExisted(request)) {
+        }
+        if (checkUsernameExisted(request)) {
             throw new ResourceAlreadyExistException("This username has already registed");
         }
-        var user = User.builder().firstName(request.getFirstname()).middleName(request.getMiddlename()).lastName(request.getLastname()).username(request.getUsername()).email(request.getEmail()).mobile(request.getMobile()).password(passwordEncoder.encode(request.getPassword())).dateOfBirth(request.getDateOfBirth()).role(Role.USER).build();
+
+        User user = new User();
+        user.setFirstName(request.getFirstName());
+        user.setMiddleName(request.getMiddleName());
+        user.setLastName(request.getLastName());
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setMobile(request.getMobile());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setDateOfBirth(request.getDateOfBirth());
+        user.setRole(Role.USER);
+        user.setSearchable(true);
         user.setCreatedAt(Instant.now());
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -64,10 +77,12 @@ public class AuthenticationService implements AuthService {
     }
 
     @Override
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        var user = userRepository.findUserByUsername(request.getUsername()).orElseThrow();
+    public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
+        if (!isLoginInformationMathched(authenticationRequest)) {
+            throw new WrongLogginInformationException("Username or password wrong, please try again");
+        }
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+        var user = userRepository.findUserByUsername(authenticationRequest.getUsername()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
@@ -79,8 +94,17 @@ public class AuthenticationService implements AuthService {
         User principal = (User) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         UserDto userDto = new UserDto(principal.getId(), principal.getFirstName(), principal.getMiddleName(), principal.getLastName(), principal.getUsername()
-                , principal.getEmail(), principal.getMobile(), (Date) principal.getDateOfBirth());
+                , principal.getEmail(), principal.getMobile(), principal.getProfile(), (Date) principal.getDateOfBirth());
         return Optional.of(userDto);
+    }
+
+    private UserDto userToUserDto(User user){
+        return modelMapper.map(user, UserDto.class);
+    }
+    @Override
+    public UserDto getUserById(Long id) {
+        var userFound = userRepository.findUserById(id).get();
+        return userToUserDto(userFound);
     }
 
     @Override
@@ -113,6 +137,11 @@ public class AuthenticationService implements AuthService {
     @Override
     public boolean checkUsernameExisted(RegisterRequest request) {
         return userRepository.findUserByUsername(request.getUsername()).isPresent();
+    }
+
+    @Override
+    public boolean isLoginInformationMathched(AuthenticationRequest authenticationRequest) {
+        return userRepository.findUserByUsername(authenticationRequest.getUsername()).isPresent() && passwordEncoder.matches(authenticationRequest.getPassword(), userRepository.findUserByUsername(authenticationRequest.getUsername()).get().getPassword());
     }
 
 

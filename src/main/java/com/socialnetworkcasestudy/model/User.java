@@ -4,22 +4,22 @@ import com.socialnetworkcasestudy.model.token.Token;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Builder
 @Entity
-public class User implements UserDetails{
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,6 +37,8 @@ public class User implements UserDetails{
     private Date dateOfBirth;
 
     @Length(min = 10, max = 10)
+    @Pattern(regexp="(^$|[0-9]{10})")
+
     private String mobile;
 
     @Column(unique = true, nullable = false)
@@ -51,22 +53,31 @@ public class User implements UserDetails{
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @Column()
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant createdAt;
+    @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
+    private Instant updatedAt;
+    @Column(name = "searchable", nullable = false)
+    private boolean searchable;
 
     @Column
     @DateTimeFormat(fallbackPatterns = "dd/mm/yyyy")
     private Instant lastLogin;
     private String intro;
-
+    @Lob
     private String profile;
 
 
     public User() {
     }
 
-    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile, String email, List<Token> tokens, String password, String username, Role role, Instant createdAt, Instant lastLogin, String intro, String profile) {
+    public User(Long id, String firstName, String middleName, String lastName,
+                Date dateOfBirth, String mobile, String email, List<Token> tokens,
+                String password, String username, Role role,
+                Instant createdAt, Instant updatedAt, Instant lastLogin,
+                String intro, String profile, boolean searchable) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -79,9 +90,19 @@ public class User implements UserDetails{
         this.username = username;
         this.role = role;
         this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.lastLogin = lastLogin;
         this.intro = intro;
         this.profile = profile;
+        this.searchable=searchable;
+    }
+
+    public boolean isSearchable() {
+        return searchable;
+    }
+
+    public void setSearchable(boolean searchable) {
+        this.searchable = searchable;
     }
 
     public List<Token> getTokens() {
@@ -224,5 +245,13 @@ public class User implements UserDetails{
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

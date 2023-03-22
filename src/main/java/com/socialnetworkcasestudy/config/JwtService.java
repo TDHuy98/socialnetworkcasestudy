@@ -49,6 +49,7 @@ public class JwtService {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60*60 * 24))
                 .setId(String.valueOf(currentLoggedin.get().getId()))
+                .claim("role",currentLoggedin.get().getRole())
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

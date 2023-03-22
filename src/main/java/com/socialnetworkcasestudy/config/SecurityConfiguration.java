@@ -11,12 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 @Configuration
@@ -34,10 +31,12 @@ public class SecurityConfiguration {
                 .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**","/posts")
+                .requestMatchers("/api/v1/auth/**", "/posts", "/cmt/**", "/cmt", "/friends/**", "/friends", "/posts/**")
                 .permitAll()
-                .requestMatchers("/posts/**")
-                .permitAll()
+                .requestMatchers("/api/v1/common/**")
+                .hasAuthority("USER")
+                .requestMatchers("/api/v1/admin/**")
+                .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

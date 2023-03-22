@@ -19,9 +19,33 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
-    private String img;
+
     @Enumerated(EnumType.STRING)
     private PostStatus postStatus;
+    @Column
+    private String img;
+    @Column
+    private Long countLike;
+
+    public Post(Long id, User user, String content, PostStatus postStatus, String img, Long countLike, Collection<Post> posts, Instant createdAt, Instant updateAt) {
+        this.id = id;
+        this.user = user;
+        this.content = content;
+        this.postStatus = postStatus;
+        this.img = img;
+        this.countLike = countLike;
+        this.posts = posts;
+        this.createdAt = createdAt;
+        this.updateAt = updateAt;
+    }
+
+    public Long getCountLike() {
+        return countLike;
+    }
+
+    public void setCountLike(Long countLike) {
+        this.countLike = countLike;
+    }
 
     @OneToMany
     @JoinColumn(name = "posts")
@@ -33,7 +57,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long id, User user, String content,String img, PostStatus postStatus,
+    public Post(Long id, User user, String content, PostStatus postStatus,
                 Collection<Post> posts, Instant createdAt, Instant updateAt) {
         this.id = id;
         this.user = user;
