@@ -24,7 +24,7 @@ public class MessageController {
     //Thêm
     @PostMapping
     public void create(@RequestBody MessageClass messageClass) {
-        messageClass.save(messageClass);
+        messageService.save(messageClass);
     }
 
 
@@ -33,6 +33,6 @@ public class MessageController {
     //Delete
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
-        noticeService.delete(id);
+        messageService.delete(id);
     }
 }
