@@ -1,15 +1,14 @@
 package com.socialnetworkcasestudy.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 public class UserSetting {
     private Long id;
-    private String firstName;
-    private String middleName;
-    private String lastName;
+    private String firstname;
+    private String middlename;
+    private String lastname;
     private String email;
     private String mobile;
     private String intro;
@@ -20,11 +19,11 @@ public class UserSetting {
     public UserSetting() {
     }
 
-    public UserSetting(Long id, String firstName, String middleName, String lastName, String email, String mobile, String intro, String profile, Date dob) {
+    public UserSetting(Long id, String firstname, String middlename, String lastname, String email, String mobile, String intro, String profile, Date dob) {
         this.id = id;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
         this.email = email;
         this.mobile = mobile;
         this.intro = intro;
@@ -40,28 +39,28 @@ public class UserSetting {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getMiddleName() {
-        return middleName;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {

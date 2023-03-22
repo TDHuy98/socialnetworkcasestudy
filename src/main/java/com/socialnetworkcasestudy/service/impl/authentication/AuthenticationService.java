@@ -58,8 +58,8 @@ public class AuthenticationService implements AuthService {
         if (checkUsernameExisted(request)) {
             throw new ResourceAlreadyExistException("This username has already registed");
         }
-        var user = User.builder().firstName(request.getFirstname()).middleName(request.getMiddlename())
-                .lastName(request.getLastname()).username(request.getUsername())
+        var user = User.builder().firstname(request.getFirstname()).middlename(request.getMiddlename())
+                .lastname(request.getLastname()).username(request.getUsername())
                 .email(request.getEmail()).mobile(request.getMobile())
                 .password(passwordEncoder.encode(request.getPassword())).dateOfBirth(request.getDateOfBirth()).role(Role.USER).build();
         user.setCreatedAt(Instant.now());
@@ -85,7 +85,7 @@ public class AuthenticationService implements AuthService {
     public Optional<UserDto> getCurrentUser() {
         User principal = (User) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
-        UserDto userDto = new UserDto(principal.getId(), principal.getFirstName(), principal.getMiddleName(), principal.getLastName(), principal.getUsername()
+        UserDto userDto = new UserDto(principal.getId(), principal.getFirstname(), principal.getMiddlename(), principal.getLastname(), principal.getUsername()
                 , principal.getEmail(), principal.getMobile(), principal.getProfile(), (Date) principal.getDateOfBirth());
         return Optional.of(userDto);
     }

@@ -1,44 +1,42 @@
 package com.socialnetworkcasestudy.websocketdemo;
 
 public class Message {
-    private String content;
-    private Long idUserSend;
-    private Long iDuserRev;
+    private long id;
+    private String message;
+    private long idSenders;
+    private long idRev;
 
-    public Message() {
+    public Message(String message) {
+        this.message = message;
     }
 
-    public Message(String content, Long idUserSend, Long iDuserRev) {
-        this.content = content;
-        this.idUserSend = idUserSend;
-        this.iDuserRev = iDuserRev;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public Long getIdUserSend() {
-        return idUserSend;
+    public String getMessage() {
+        return this.message;
     }
 
-    public void setIdUserSend(Long idUserSend) {
-        this.idUserSend = idUserSend;
+    public long getIdSenders() {
+        return idSenders;
     }
 
-    public Long getiDuserRev() {
-        return iDuserRev;
+    public void setIdSenders(long idSenders) {
+        this.idSenders = idSenders;
     }
 
-    public void setiDuserRev(Long iDuserRev) {
-        this.iDuserRev = iDuserRev;
+    public long getIdRev() {
+        return idRev;
     }
 
-    public Message(String content) {
-        this.content = content;
+    public void setIdRev(long idRev) {
+        this.idRev = idRev;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getContent() {
-        return this.content;
+    public Message(String message, long idSenders, long idRev) {
+        this.message = message;
+        this.idSenders = idSenders;
+        this.idRev = idRev;
     }
 }

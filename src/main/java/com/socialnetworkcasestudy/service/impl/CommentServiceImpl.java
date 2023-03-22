@@ -29,9 +29,9 @@ public class CommentServiceImpl implements CommentService {
             commentDto.setUserId(c.getUser().getId());
             commentDto.setPostId(c.getPostId());
             commentDto.setProfile(c.getUser().getProfile());
-            commentDto.setFirstName(c.getUser().getFirstName());
-            commentDto.setMiddleName(c.getUser().getMiddleName());
-            commentDto.setLastName(c.getUser().getLastName());
+            commentDto.setFirstname(c.getUser().getFirstname());
+            commentDto.setMiddlename(c.getUser().getMiddlename());
+            commentDto.setLastname(c.getUser().getLastname());
             newList.add(commentDto);
         }
         return newList;

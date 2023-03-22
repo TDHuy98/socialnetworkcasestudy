@@ -11,9 +11,9 @@ public class WebController {
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
 
-    @MessageMapping("/hello/{id1}/{id2}")
-    public void greeting(User user, @PathVariable("id1") Long id1, @PathVariable("id2") Long id2) throws Exception {
-        simpMessagingTemplate.convertAndSend("/topic/public"+id1 , new Message(user.getName() +"  " + user.getMessage()));
-        simpMessagingTemplate.convertAndSend("/topic/public"+id2 , new Message(user.getName() +"  " + user.getMessage()));
+    @MessageMapping("/hello")
+    public void greeting(User user) throws Exception {
+       simpMessagingTemplate.convertAndSend("/topic/public/"+user.getIdSender(), new Message( user.getMessage(),user.getIdSender(), user.getIdRev()));
+        simpMessagingTemplate.convertAndSend("/topic/public/"+ user.getIdRev(), new Message(user.getMessage(),user.getIdSender(), user.getIdRev()));
     }
 }

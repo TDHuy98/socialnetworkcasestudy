@@ -7,9 +7,9 @@ import java.util.Date;
 public class UserDto {
     private Long id;
     private String firstname;
-    private String middleName;
-    private String lastName;
-    private String userName;
+    private String middlename;
+    private String lastname;
+    private String username;
     private String email;
     private String mobile;
     private String profile;
@@ -19,12 +19,12 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long id, String firstname, String middleName, String lastName, String userName, String email, String mobile, String profile, Date dateOfBirth) {
+    public UserDto(Long id, String firstname, String middlename, String lastname, String username, String email, String mobile, String profile, Date dateOfBirth) {
         this.id = id;
         this.firstname = firstname;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.userName = userName;
+        this.middlename = middlename;
+        this.lastname = lastname;
+        this.username = username;
         this.email = email;
         this.mobile = mobile;
         this.profile = profile;
@@ -47,28 +47,28 @@ public class UserDto {
         this.firstname = firstname;
     }
 
-    public String getMiddleName() {
-        return middleName;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

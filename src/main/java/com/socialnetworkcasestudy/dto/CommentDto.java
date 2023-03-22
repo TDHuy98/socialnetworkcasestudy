@@ -6,47 +6,47 @@ public class CommentDto {
     private String content;
     private Long postId;
     private String profile;
-    private String firstName;
-    private String middleName;
-    private String lastName;
+    private String firstname;
+    private String middlename;
+    private String lastname;
 
 
     public CommentDto() {
     }
 
-    public CommentDto(Long id, Long userId, String content, Long postId, String profile, String firstName, String middleName, String lastName) {
+    public CommentDto(Long id, Long userId, String content, Long postId, String profile, String firstname, String middlename, String lastname) {
         this.id = id;
         this.userId = userId;
         this.content = content;
         this.postId = postId;
         this.profile = profile;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getMiddleName() {
-        return middleName;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public Long getId() {

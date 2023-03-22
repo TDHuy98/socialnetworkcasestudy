@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,13 +25,13 @@ public class User implements UserDetails {
     private Long id;
 
     @Column
-    private String firstName;
+    private String firstname;
 
     @Column
-    private String middleName;
+    private String middlename;
 
     @Column
-    private String lastName;
+    private String lastname;
 
     @Column
     private Date dateOfBirth;
@@ -71,11 +70,11 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Long id, String firstName, String middleName, String lastName, Date dateOfBirth, String mobile, String email, List<Token> tokens, String password, String username, Role role, Instant createdAt, Instant updatedAt, Instant lastLogin, String intro, String profile) {
+    public User(Long id, String firstname, String middlename, String lastname, Date dateOfBirth, String mobile, String email, List<Token> tokens, String password, String username, Role role, Instant createdAt, Instant updatedAt, Instant lastLogin, String intro, String profile) {
         this.id = id;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
         this.dateOfBirth = dateOfBirth;
         this.mobile = mobile;
         this.email = email;
@@ -139,28 +138,28 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getMiddleName() {
-        return middleName;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getMobile() {
