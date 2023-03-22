@@ -31,7 +31,8 @@ public class SecurityConfiguration {
                 .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**", "/posts", "/cmt/**", "/cmt", "/friends/**", "/friends", "/posts/**")
+                .requestMatchers("/api/v1/auth/**", "/posts", "/cmt/**", "/cmt", "/friends/**", "/friends", "/posts/**","/hello","/topic/public/**"
+                ,"/gkz-stomp-endpoint/**","/Message/**")
                 .permitAll()
                 .requestMatchers("/api/v1/common/**")
                 .hasAuthority("USER")

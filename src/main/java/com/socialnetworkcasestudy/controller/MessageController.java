@@ -16,7 +16,7 @@ public class MessageController {
     MessageService messageService;
 
 
-    @GetMapping
+    @GetMapping("/{id}")
     public List<MessageClass> showAllMessage(@PathVariable Long id) {
         return messageService.findAllByUserId(id);
     }
