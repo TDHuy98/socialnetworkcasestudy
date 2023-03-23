@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/Notice")
 public class NoticeController {
     @Autowired
-    NoticeService noticeService;
+    private NoticeService noticeService;
 
 
     @GetMapping

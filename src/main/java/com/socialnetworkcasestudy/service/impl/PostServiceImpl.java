@@ -13,15 +13,18 @@ import com.socialnetworkcasestudy.service.AuthService;
 import com.socialnetworkcasestudy.service.PostService;
 import com.socialnetworkcasestudy.service.UserService;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -57,7 +60,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostCreationDto createPost(PostCreationDto postCreationDto) {
         Post postCreation = postCreationDtoToPost(postCreationDto);
-        postCreation.setCreatedAt(Instant.now());
+        postCreation.setCreatedAt(Date.valueOf(LocalDate.now()));
         userPostRepository.save(postCreation);
         return postCreationDto;
     }
@@ -93,13 +96,16 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostDto> feed(Long id) {
         User loggedInUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not found"));
-        userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto).toList();
         List<Long> friendIdList = new ArrayList<>();
         List<PostDto> postDtos = new ArrayList<>();
+        postDtos.addAll(userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto).toList());
         userFriendRepository.findBySourceIdAndFriendStatus(id, FriendshipStatus.Active).stream().map(this::friendToFriendTestDto).forEach(u -> friendIdList.add(friendIdList.size(), u.getTargetId()));
         friendIdList.forEach(u -> postDtos.addAll(userPostRepository.findAllByUsers_Id(u.longValue()).stream().map(this::postToPostDto).toList()));
-        postDtos.forEach(post -> {modelMapper.map(userRepository.findById(post.getUserId()).get(),post);});
-
+        postDtos.forEach(post -> {
+            modelMapper.map(userRepository.findById(post.getUserId()).get(), post);
+        });
+        postDtos.stream().sorted(Comparator.comparing(PostDto::getCreatedAt)).toList();
+        Collections.reverse(postDtos);
         return postDtos;
     }
 

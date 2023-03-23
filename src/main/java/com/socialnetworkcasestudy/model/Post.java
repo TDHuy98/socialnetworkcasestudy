@@ -1,7 +1,9 @@
 package com.socialnetworkcasestudy.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,17 +29,6 @@ public class Post {
     @Column
     private Long countLike;
 
-    public Post(Long id, User user, String content, PostStatus postStatus, String img, Long countLike, Collection<Post> posts, Instant createdAt, Instant updateAt) {
-        this.id = id;
-        this.user = user;
-        this.content = content;
-        this.postStatus = postStatus;
-        this.img = img;
-        this.countLike = countLike;
-        this.posts = posts;
-        this.createdAt = createdAt;
-        this.updateAt = updateAt;
-    }
 
     public Long getCountLike() {
         return countLike;
@@ -50,19 +41,19 @@ public class Post {
     @OneToMany
     @JoinColumn(name = "posts")
     private Collection<Post> posts = new ArrayList<>();
-
-    private Instant createdAt;
-    private Instant updateAt;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"M/d/yy", "dd.MM.yyyy"})
+    private Date createdAt;
+    private Date updateAt;
 
     public Post() {
     }
 
     public Post(Long id, User user, String content, PostStatus postStatus,
-                Collection<Post> posts, Instant createdAt, Instant updateAt) {
+                Collection<Post> posts, Date createdAt, Date updateAt) {
         this.id = id;
         this.user = user;
         this.content = content;
-        this.img=img;
+        this.img = img;
         this.postStatus = postStatus;
         this.posts = posts;
         this.createdAt = createdAt;
@@ -117,19 +108,19 @@ public class Post {
         this.posts = posts;
     }
 
-    public Instant getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Instant getUpdateAt() {
+    public Date getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(Instant updateAt) {
+    public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
     }
 }

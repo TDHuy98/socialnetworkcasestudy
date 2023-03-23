@@ -3,6 +3,7 @@ package com.socialnetworkcasestudy.model;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Date;
 import java.time.Instant;
 
 @Entity
@@ -16,7 +17,7 @@ public class Comment {
 
     private Long postId;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"M/d/yy", "dd.MM.yyyy"})
-    private Instant createdAt;
+    private Date createdAt;
     public Comment() {
 
     }
@@ -53,15 +54,15 @@ public class Comment {
         this.postId = postId;
     }
 
-    public Instant getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Comment(Long id, User user, String content, Long postId, Instant createdAt) {
+    public Comment(Long id, User user, String content, Long postId, Date createdAt) {
         this.id = id;
         this.user = user;
         this.content = content;
