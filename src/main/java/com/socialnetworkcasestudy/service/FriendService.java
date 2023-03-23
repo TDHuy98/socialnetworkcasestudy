@@ -17,7 +17,5 @@ public interface FriendService {
 
     void delete(long id);
 
-    List<Friend> getActiveFriendList(long id, FriendshipStatus friendshipStatus);
-
     void requestCancer(Friend friend);
 }
