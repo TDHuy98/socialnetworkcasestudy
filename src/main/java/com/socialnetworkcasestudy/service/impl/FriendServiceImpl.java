@@ -85,12 +85,6 @@ public class FriendServiceImpl implements FriendService {
         return listFriendByStatus("New");
     }
 
-    @Override
-    public List<Friend> getActiveFriendList(long id, FriendshipStatus friendshipStatus) {
-        return userFriendRepository.findTargetBySourceIdAndStatus(id, friendshipStatus);
-
-    }
-
     public List<Friend> getBlockFriendList(long id) {
         List<Friend> friendListNew = listFriendByStatus("Block");
         for (Friend friend : friendListNew) {
