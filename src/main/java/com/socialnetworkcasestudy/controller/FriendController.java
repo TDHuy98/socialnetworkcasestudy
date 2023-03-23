@@ -43,25 +43,6 @@ public class FriendController {
     }
 
     //    Hiển thị
-//    @GetMapping("/{id}")
-//    public Optional<Friend> showAllFriendById(@PathVariable int id) {
-//        return friendService.findById(id);
-//    }
-
-    @GetMapping("/listActiveFriends/{id}/{friendStatus}")
-    public List<Friend> showAllActiveFriends(@PathVariable long id, FriendshipStatus friendshipStatus) {
-        return friendService.getActiveFriendList(id, friendshipStatus);
-    }
-
-//    @GetMapping("/listNewFriends/{id}")
-//    public List<Friend> showAllNewFriends(@PathVariable long id) {
-//        return friendService.getNewFriendList(id);
-//    }
-//
-//    @GetMapping("/listBlockFriends/{id}")
-//    public List<Friend> showAllBlockFriends(@PathVariable long id) {
-//        return friendService.getBlockFriendList(id);
-//    }
     //    Sửa user
 
     @PutMapping("/cancer")
