@@ -27,7 +27,7 @@ public interface UserService {
 
 
 
-    String enableSearch(Long id);
+    boolean enableSearch(Long id);
 
-    String disableSearch(Long id);
+    boolean disableSearch(Long id);
 }

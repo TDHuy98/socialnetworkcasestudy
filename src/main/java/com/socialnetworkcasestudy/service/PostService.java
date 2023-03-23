@@ -21,6 +21,8 @@ public interface PostService {
 
     List<PostDto> allPost();
 
+    List<PostDto> feed(Long id);
+
     List<Post> findAll();
 
     Post changeStatus(long id, PostStatus postStatus);

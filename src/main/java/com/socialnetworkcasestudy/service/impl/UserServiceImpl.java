@@ -107,16 +107,16 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public String enableSearch(Long id) {
+    public boolean enableSearch(Long id) {
         userRepository.findById(id).get().setSearchable(true);
-        return "Enable Search";
+        return userRepository.findById(id).get().isSearchable();
 
     }
 
     @Override
-    public String disableSearch(Long id) {
+    public boolean disableSearch(Long id) {
         userRepository.findById(id).get().setSearchable(false);
-        return "Disable Search";
+        return userRepository.findById(id).get().isSearchable();
 
     }
 

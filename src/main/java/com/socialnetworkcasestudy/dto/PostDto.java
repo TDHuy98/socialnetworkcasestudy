@@ -1,6 +1,8 @@
 package com.socialnetworkcasestudy.dto;
 
 
+import java.time.Instant;
+
 public class PostDto {
     private Long id;
     private Long userId;
@@ -14,20 +16,13 @@ public class PostDto {
     private Long postId;
     private Long countLike;
 
-    private Long likeId;
-    private Long userLikedId;
-    private String userLikedLastName;
-
-    private Long commentId;
-    private Long userCommentedId;
-    private String commentContent;
-    private Long commentParentId;
+   private Instant createdAt;
 
     public PostDto() {
     }
 
     public PostDto(Long id, Long userId, String profile, String img, String firstName, String middleName, String lastName,
-                   String content, String postStatus, Long postId, Long countLike, Long likeId, Long userLikedId, String userLikedLastName, Long commentId, Long userCommentedId, String commentContent, Long commentParentId) {
+                   String content, String postStatus, Long postId, Long countLike, Long likeId, Long userLikedId, String userLikedLastName, Long commentId, Long userCommentedId, String commentContent, Long commentParentId, Instant createdAt) {
         this.id = id;
         this.userId = userId;
         this.profile = profile;
@@ -39,13 +34,7 @@ public class PostDto {
         this.postStatus = postStatus;
         this.postId = postId;
         this.countLike = countLike;
-        this.likeId = likeId;
-        this.userLikedId = userLikedId;
-        this.userLikedLastName = userLikedLastName;
-        this.commentId = commentId;
-        this.userCommentedId = userCommentedId;
-        this.commentContent = commentContent;
-        this.commentParentId = commentParentId;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -134,5 +123,13 @@ public class PostDto {
 
     public void setCountLike(Long countLike) {
         this.countLike = countLike;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 }

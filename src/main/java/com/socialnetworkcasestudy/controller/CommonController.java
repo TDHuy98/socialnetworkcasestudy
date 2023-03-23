@@ -21,12 +21,12 @@ public class CommonController {
     }
 
     @PostMapping("/enable-search/{userId}")
-    public ResponseEntity<String> enableSearchable(@PathVariable Long userId) {
+    public ResponseEntity<Boolean> enableSearchable(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.enableSearch(userId));
     }
 
     @PostMapping("/disable-search/{userId}")
-    public ResponseEntity<String> disableSearchable(@PathVariable Long userId){
+    public ResponseEntity<Boolean> disableSearchable(@PathVariable Long userId){
         return ResponseEntity.ok(userService.disableSearch(userId));
     }
 }

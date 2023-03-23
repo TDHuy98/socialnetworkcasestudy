@@ -7,16 +7,11 @@ import com.socialnetworkcasestudy.model.Post;
 import com.socialnetworkcasestudy.model.PostStatus;
 import com.socialnetworkcasestudy.service.FriendService;
 import com.socialnetworkcasestudy.service.PostService;
-import com.socialnetworkcasestudy.service.impl.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
 
 @RestController
@@ -60,4 +55,11 @@ public class PostController {
     public Post delete(@PathVariable long id) {
         return postService.changeStatus(id, PostStatus.Delete);
     }
+
+
+    @GetMapping("/feed/{id}")
+    public List<PostDto> test(@PathVariable Long id){
+       return postService.feed(id);
+    }
+
 }

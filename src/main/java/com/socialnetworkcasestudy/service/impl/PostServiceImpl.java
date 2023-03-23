@@ -1,21 +1,25 @@
 package com.socialnetworkcasestudy.service.impl;
 
+import com.socialnetworkcasestudy.dto.FriendTestDto;
 import com.socialnetworkcasestudy.dto.PostCreationDto;
 import com.socialnetworkcasestudy.dto.PostDto;
 import com.socialnetworkcasestudy.dto.PostModifierDto;
-import com.socialnetworkcasestudy.model.Post;
-import com.socialnetworkcasestudy.model.PostStatus;
-import com.socialnetworkcasestudy.model.User;
+import com.socialnetworkcasestudy.exception.ResourceNotFoundException;
+import com.socialnetworkcasestudy.model.*;
+import com.socialnetworkcasestudy.repository.UserFriendRepository;
 import com.socialnetworkcasestudy.repository.UserPostRepository;
+import com.socialnetworkcasestudy.repository.UserRepository;
 import com.socialnetworkcasestudy.service.AuthService;
 import com.socialnetworkcasestudy.service.PostService;
 import com.socialnetworkcasestudy.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +36,10 @@ public class PostServiceImpl implements PostService {
     private AuthService authService;
     @Autowired
     private FriendServiceImpl friendService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserFriendRepository userFriendRepository;
 
     @Override
     public List<PostDto> findAllByUser_Id(Long id) {
@@ -82,8 +90,31 @@ public class PostServiceImpl implements PostService {
         return userPostRepository.findAll().stream().map(this::postToPostDto).toList();
     }
 
+    @Override
+    public List<PostDto> feed(Long id) {
+        User loggedInUser = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not found"));
+        userPostRepository.findAllByUsers_Id(id).stream().map(this::postToPostDto).toList();
+        List<Long> friendIdList = new ArrayList<>();
+        List<PostDto> postDtos = new ArrayList<>();
+        userFriendRepository.findBySourceIdAndFriendStatus(id, FriendshipStatus.Active).stream().map(this::friendToFriendTestDto).forEach(u -> friendIdList.add(friendIdList.size(), u.getTargetId()));
+        friendIdList.forEach(u -> postDtos.addAll(userPostRepository.findAllByUsers_Id(u.longValue()).stream().map(this::postToPostDto).toList()));
+        postDtos.forEach(post -> {modelMapper.map(userRepository.findById(post.getUserId()).get(),post);});
+
+        return postDtos;
+    }
+
+//    private TypeMap<User, PostDto> userPostDtoTypeMap = modelMapper.createTypeMap(User.class, PostDto.class);
+
+    private FriendTestDto friendToFriendTestDto(Friend friend) {
+        return modelMapper.map(friend, FriendTestDto.class);
+    }
+
     private PostDto postToPostDto(Post post) {
         return modelMapper.map(post, PostDto.class);
+    }
+
+    private PostDto userToPostDto(User user) {
+        return modelMapper.map(user, PostDto.class);
     }
 
     private Post postDtoToPost(PostDto postDto) {
