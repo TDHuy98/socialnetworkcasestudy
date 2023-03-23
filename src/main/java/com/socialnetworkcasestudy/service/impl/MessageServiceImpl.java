@@ -33,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
         List<MessageClass> messages = userMessageRepository.findAll();
         List<MessageClass> newList = new ArrayList<>();
         for (int i = 0; i < messages.size(); i++) {
-            if (messages.get(i).getIdSenders() == id){
+            if (messages.get(i).getIdSenders() == id||messages.get(i).getIdRev()==id){
                 newList.add(messages.get(i));
             }
         }
